@@ -53,6 +53,12 @@ def get_lotto_data():
         print("Please enter your favourite winning euro millions winning numbers.")
         print("Numbers should be five numbers separated by commas.")
         print("Example: 7,45,34,23,49\n")
+        print("The winning numbers from the last draw are:")
+        
+        euro = SHEET.worksheet("euro").get_all_values()
+        last_draw = euro[-1]
+        print(last_draw)  # Print the winning numbers from last_draw data
+        print()  # Add an empty row
 
         data_str = input("Enter your data here:\n")
 
@@ -64,3 +70,4 @@ def get_lotto_data():
 
 
 get_lotto_data()
+

@@ -112,12 +112,12 @@ def get_lotto_data():
 def push_to_user_workbook(lotto_data):
     try:
         user_workbook = SHEET.worksheet("user")
-        # Slice the lotto_data list to get the data for cells B1 to F5
-        data_for_cells_B1_to_F5 = lotto_data[:5]
-        # Insert an empty cell at the beginning to shift the data to B1 to F5 cells
-        data_for_cells_B1_to_F5.insert(0, "Numbers:")
+        # Slice the lotto_data list to get the data for cells B1 to F1
+        data_for_cells_B1_to_F1 = lotto_data[:5]
+        # Insert data to B1 to F1 cells preceded by string 'Numbers:' at A1
+        data_for_cells_B1_to_F1.insert(0, "Numbers:")
         # Insert the sliced data at row 1, starting from cell B1
-        user_workbook.insert_row(data_for_cells_B1_to_F5, index=1)
+        user_workbook.insert_row(data_for_cells_B1_to_F1, index=1)
         print("Your data has been successfully added to the 'user' workbook!")
     except Exception as e:
         print("An error occurred while pushing data to the 'user' workbook:")

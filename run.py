@@ -44,9 +44,10 @@ def validate_data(values):
 
     # Check if there are spaces between values and commas
     if any(' ' in value for value in values.split(',')):
-        errors.append("Error: Spaces are not allowed between values and commas.")
+        errors.append("Error: Spaces not allowed between values and commas.")
 
-    # Convert each value to an integer and check if they are within the range of 1 to 50
+    # Convert each value to an integer and check if they are within the range 
+    # of 1 to 50
     int_values = []
     for value in values.split(','):
         try:
@@ -105,6 +106,39 @@ def get_lotto_data():
 
     return lotto_data
 
+# get_lotto_data()
 
-get_lotto_data()
+
+def push_to_user_workbook(lotto_data):
+    try:
+        user_workbook = SHEET.worksheet("user")
+        # Slice the lotto_data list to get the data for cells B1 to F5
+        data_for_cells_B1_to_F5 = lotto_data[:5]
+        # Insert an empty cell at the beginning to shift the data to B1 to F5 cells
+        data_for_cells_B1_to_F5.insert(0, "Numbers:")
+        # Insert the sliced data at row 1, starting from cell B1
+        user_workbook.insert_row(data_for_cells_B1_to_F5, index=1)
+        print("Your data has been successfully added to the 'user' workbook!")
+    except Exception as e:
+        print("An error occurred while pushing data to the 'user' workbook:")
+        print(e)
+
+
+if __name__ == "__main__":
+    print()
+    print("Welcome to Lottorama!")
+    print("Let us help you win the Euro Millions jackpot.")
+    print()
+    print("Please enter your favorite Euro Millions ticket numbers.")
+    print("Enter five numbers, strictly unique, between 1 and 50,")
+    print("with commas in between and no spaces.")
+    print("Example: 7,45,34,23,49\n")
+
+    while True:
+        lotto_data = get_lotto_data()
+        if validate_data(lotto_data):
+            push_to_user_workbook(lotto_data)
+            break
+
+
 

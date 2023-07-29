@@ -50,22 +50,38 @@ def get_lotto_data():
     Run while loop until correct data is input
     """
     while True:
-        print("Please enter your favourite winning euro millions winning numbers.")
-        print("Numbers should be five numbers separated by commas.")
-        print("Example: 7,45,34,23,49\n")
-        print("The winning numbers from the last draw are:")
-        
+        print()
+        print("Welcome to Lottorama!")
+        print("Let us help you win the Euro Millions jackpot.")
+        print()
+
         euro = SHEET.worksheet("euro").get_all_values()
         last_draw = euro[-1]
-        print(last_draw)  # Print the winning numbers from last_draw data
+
+        # Print the first element of last_draw (index 0)
+        print(f"Last draw date: {last_draw[0]}")
+
+        # Print the rest of the elements in the list (index 1 to 5)
+        winning_numbers_str = ""
+        for number in last_draw[1:6]:
+            winning_numbers_str += number + ' '
+
+        # Print the winning numbers on the same line
+        print(f"Winning numbers: {winning_numbers_str}")
+        print()  # Add an empty row
+
+        print("Please enter your favorite Euro Millions ticket numbers.")
+        print("Numbers should be five numbers separated by commas.")
+        print("Example: 7,45,34,23,49\n")
         print()  # Add an empty row
 
         data_str = input("Enter your data here:\n")
-
         lotto_data = data_str.split(",")
+
         if validate_data(lotto_data):
             print("Data is valid!")
             break
+
     return lotto_data
 
 

@@ -23,8 +23,10 @@ print("Welcome to Lottorama!")
 print("Let us help you win the Euro Millions jackpot.")
 print()
 print("Please enter your favorite Euro Millions ticket numbers.")
-print("Numbers should be five unique numbers separated by commas without spaces in between.")
+print("Enter five numbers, strictly uniqe, between 1 and 50,")
+print("with commas in between and no spaces.")
 print("Example: 7,45,34,23,49\n")
+
 
 def validate_data(values):
     """
@@ -34,34 +36,45 @@ def validate_data(values):
     Check if the numbers are unique.
     Check if there are no spaces between values and commas.
     """
-    try:
-        # Check if there are spaces between values and commas
-        for value in values:
-            if ' ' in value:
-                raise ValueError("Spaces are not allowed between values and commas.")
+    errors = []
 
-        # Convert each value to an integer and check if they are within the range of 1 to 50
-        int_values = [int(value) for value in values]
-        for value in int_values:
-            if not 1 <= value <= 50:
-                raise ValueError("Values should be between 1 and 50.")
+    # If the input is a list, convert it to a comma-separated string
+    if isinstance(values, list):
+        values = ','.join(map(str, values))
 
-        # Check if exactly 5 values are provided
-        if len(values) != 5:
-            raise ValueError("Exactly 5 values required.")
-            
-        # Check if the numbers are unique
-        if len(set(int_values)) != 5:
-            raise ValueError("The 5 numbers should be unique.")
-            
-    except ValueError:
+    # Check if there are spaces between values and commas
+    if any(' ' in value for value in values.split(',')):
+        errors.append("Error: Spaces are not allowed between values and commas.")
+
+    # Convert each value to an integer and check if they are within the range of 1 to 50
+    int_values = []
+    for value in values.split(','):
+        try:
+            int_value = int(value)
+            int_values.append(int_value)
+        except ValueError as ve:
+            errors.append(f"Error: {ve}")
+
+    for value in int_values:
+        if not 1 <= value <= 50:
+            errors.append("Error: Values should be between 1 and 50.")
+
+    # Check if exactly 5 values are provided
+    if len(int_values) != 5:
+        errors.append("Error: Exactly 5 values required.")
+        
+    # Check if the numbers are unique
+    if len(set(int_values)) != 5:
+        errors.append("Error: The 5 numbers should be unique.")
+
+    if errors:
         print()
-        print("* Please check your numbers and try again!")
-        print("* You should provide exactly 5 unique whole numbers.") 
-        print("* Numbers should be strictly between 1 and 50 with commas in between and no spaces (Example: 7,45,34,23,49).")
+        for error in errors:
+            print(error)
         print()
+        print("* Please try again!")
         return False
-   
+
     return True
 
 
@@ -83,7 +96,7 @@ def get_lotto_data():
 
     while True:
         
-        data_str = input("Enter your data here:\n")
+        data_str = input("Enter your five numbers here: ")
         lotto_data = data_str.split(",")
 
         if validate_data(lotto_data):

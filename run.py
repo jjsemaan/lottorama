@@ -67,15 +67,18 @@ def validate_data(values):
             int_values.append(int_value)
         except ValueError as ve:
             errors_five_nums.append(f"Error: {ve}")
+    
+    # Check if exactly 5 values are provided
+    if len(int_values) != 5:
+        errors_five_nums.append("Error: Exactly 5 values required.")
+        print("Error: Exactly 5 values required!")
+        print()
+        return False
 
     for value in int_values:
         if not 1 <= value <= 50:
             errors_five_nums.append("Error: Values should be between 1 and 50.")
-
-    # Check if exactly 5 values are provided
-    if len(int_values) != 5:
-        errors_five_nums.append("Error: Exactly 5 values required.")
-        
+    
     # Check if the numbers are unique
     if len(set(int_values)) != 5:
         errors_five_nums.append("Error: The 5 numbers should be unique.")
@@ -83,8 +86,8 @@ def validate_data(values):
     if errors_five_nums:
         # Print the errors, if any, and return False indicating data is not valid
         print()
-        for error in errors_five_nums:
-            print(error)
+        for num in errors_five_nums:
+            print(num)
         print()
         print("* Please try again!")
         return False

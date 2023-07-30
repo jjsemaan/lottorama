@@ -10,13 +10,14 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-# Load the credentials from the service account JSON file 'creds.json' and specify the scope
+# Load the credentials from the service account JSON file 'creds.json' 
+# and specify the scope
 CREDS = Credentials.from_service_account_file('creds.json', scopes=SCOPE)
 
 # Create a new credentials object with the specified scope
 SCOPED_CREDS = CREDS.with_scopes(SCOPE)
 
-# Authorize the gspread client with the scoped credentials
+# Authorise the gspread client with the scoped credentials
 GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 
 # Open the Google Sheets document named 'lottorama-data'
@@ -38,7 +39,7 @@ print("Example: 7,45,34,23,49\n")
 
 def validate_data(values):
     """
-    Function to validate user-entered data for Euro Millions ticket numbers.
+    Function to validate user-entered data for Euro Millions ticket numbers of user.
 
     Args:
     values (str or list): The user-entered numbers as a comma-separated string or list.
@@ -57,7 +58,8 @@ def validate_data(values):
     if any(' ' in value for value in values.split(',')):
         errors.append("Error: Spaces not allowed between values and commas.")
 
-    # Convert each value to an integer and check if they are within the range of 1 to 50
+    # Convert each value to an integer and check if they are within
+    # the range of 1 to 50
     int_values = []
     for value in values.split(','):
         try:
@@ -91,7 +93,7 @@ def validate_data(values):
     return True
 
 
-def get_lotto_data():
+def user_lotto_data():
     """
     Function to get lotto figures input from the user.
     Runs a while loop until correct data is entered.
@@ -112,6 +114,7 @@ def get_lotto_data():
 
     while True:
         # Get user input for Euro Millions ticket numbers
+        lotto_data = SHEET.worksheet('euro').get_all_values()
         data_str = input("Enter your five numbers here: ")
         lotto_data = data_str.split(",")
 
@@ -151,7 +154,6 @@ def push_to_user_workbook(lotto_data):
         print(e)
 
 
-
 if __name__ == "__main__":
     # Main program execution starts here
     print()
@@ -165,7 +167,7 @@ if __name__ == "__main__":
 
     while True:
         # Get user-entered Euro Millions ticket numbers
-        lotto_data = get_lotto_data()
+        lotto_data = user_lotto_data()
 
         # Validate the user-entered data
         if validate_data(lotto_data):

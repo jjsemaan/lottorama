@@ -119,8 +119,8 @@ def user_lotto_data():
         # Get user input for Euro Millions ticket numbers
         # lotto_data = SHEET.worksheet('euro').get_all_values()        
         lotto_data = []
-        data_str = input("Enter your five numbers here: ")
-        lotto_data = data_str.split(",")
+        data_str_five_nums = input("Enter your five numbers here: ")
+        lotto_data = data_str_five_nums.split(",")
 
         # Validate the user-entered data
         if validate_data(lotto_data):

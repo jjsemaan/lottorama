@@ -24,7 +24,7 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 SHEET = GSPREAD_CLIENT.open('lottorama-data')
 
 # Get data from the worksheet named 'euro' and store it as a list of lists
-lotto_data = SHEET.worksheet('euro').get_all_values()
+# lotto_data = SHEET.worksheet('euro').get_all_values()
 
 # Print welcome message and instructions for the user
 print()
@@ -114,7 +114,8 @@ def user_lotto_data():
 
     while True:
         # Get user input for Euro Millions ticket numbers
-        # lotto_data = SHEET.worksheet('euro').get_all_values()
+        # lotto_data = SHEET.worksheet('euro').get_all_values()        
+        lotto_data = []
         data_str = input("Enter your five numbers here: ")
         lotto_data = data_str.split(",")
 

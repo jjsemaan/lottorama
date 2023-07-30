@@ -81,7 +81,7 @@ def validate_data(values):
         errors_five_nums.append("Error: The 5 numbers should be unique.")
 
     if errors_five_nums:
-        # Print the errors_five_nums, if any, and return False indicating data is not valid
+        # Print the errors, if any, and return False indicating data is not valid
         print()
         for error in errors_five_nums:
             print(error)
@@ -114,7 +114,7 @@ def user_lotto_data():
 
     while True:
         # Get user input for Euro Millions ticket numbers
-        lotto_data = SHEET.worksheet('euro').get_all_values()
+        # lotto_data = SHEET.worksheet('euro').get_all_values()
         data_str = input("Enter your five numbers here: ")
         lotto_data = data_str.split(",")
 

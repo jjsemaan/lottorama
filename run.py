@@ -102,7 +102,7 @@ def user_lotto_data():
     Runs a while loop until correct data is entered.
 
     Returns:
-    list: A list of user-entered Euro Millions ticket numbers.
+    list: A list of user-entered Euro Millions ticket numbers and lucky numbers.
     """
 
     # Print the last draw date and winning numbers only once at the start
@@ -117,39 +117,66 @@ def user_lotto_data():
 
     while True:
         # Get user input for Euro Millions ticket numbers
-        # lotto_data = SHEET.worksheet('euro').get_all_values()        
-        lotto_data = []
-        data_str_five_nums = input("Enter your five numbers here: ")
-        lotto_data = data_str_five_nums.split(",")
+        lotto_data_five_nums = []
+        data_str_five_nums = input("Enter your five numbers here (separated by commas): ")
+        lotto_data_five_nums = data_str_five_nums.split(",")
 
         # Validate the user-entered data
-        if validate_data(lotto_data):
+        if validate_data(lotto_data_five_nums):
             print("Data is valid!")
             break
+        else:
+            print("Error: Invalid data format.")
+
+    while True:
+        # Get user input for the 2 lucky numbers between 1 and 12
+        lucky_numbers = []
+        lucky_numbers_str = input("Enter your two lucky numbers (separated by commas): ")
+        lucky_numbers = lucky_numbers_str.split(",")
+
+        # Validate the user-entered data for lucky numbers
+        try:
+            lucky_numbers = [int(num) for num in lucky_numbers]
+            if all(1 <= num <= 12 for num in lucky_numbers) and len(lucky_numbers) == 2:
+                # Check if lucky_numbers are unique
+                if len(set(lucky_numbers)) == 2:
+                    print("Lucky numbers are valid!")
+                    break
+                else:
+                    print("Error: Lucky numbers should be two unique integers between 1 and 12.")
+            else:
+                print("Error: Lucky numbers should be two integers between 1 and 12.")
+        except ValueError:
+            print("Error: Please enter valid integers for lucky numbers.")
+
+    # Combine lotto_data_five_nums and lucky_numbers into a single list with a comma in between
+    lotto_data = lotto_data_five_nums + lucky_numbers
 
     return lotto_data
 
 
 def push_to_user_workbook(lotto_data):
     """
-    Function to push user-entered Euro Millions ticket numbers to the 'user' workbook.
+    Function to push user-entered Euro Millions ticket 
+    numbers to the 'user' workbook.
 
     Args:
-    lotto_data (list): A list of user-entered Euro Millions ticket numbers.
+    lotto_data_five_nums (list): A list of user-entered 
+    Euro Millions ticket numbers.
     """
 
     try:
         # Access the 'user' worksheet
         user_workbook = SHEET.worksheet("user")
 
-        # Slice the lotto_data list to get the data for cells B1 to F1
-        data_for_cells_B1_to_F1 = lotto_data[:5]
+        # Slice the lotto_data list to get the data for cells B1 to H1
+        data_for_cells_B1_to_H1 = lotto_data[:7]
 
         # Insert data to B1 to F1 cells preceded by the string 'Numbers:' at A1
-        data_for_cells_B1_to_F1.insert(0, "Numbers:")
+        data_for_cells_B1_to_H1.insert(0, "Numbers:")
 
         # Update the individual cells within the range B1:F1 with the new data
-        for col_index, value in enumerate(data_for_cells_B1_to_F1, start=1):
+        for col_index, value in enumerate(data_for_cells_B1_to_H1, start=1):
             user_workbook.update_cell(1, col_index, value)
 
         print("Your data has been successfully updated in the 'user' workbook!")
@@ -173,8 +200,6 @@ if __name__ == "__main__":
         # Get user-entered Euro Millions ticket numbers
         lotto_data = user_lotto_data()
 
-        # Validate the user-entered data
-        if validate_data(lotto_data):
-            # Push the data to the 'user' workbook if it is valid and break the loop
-            push_to_user_workbook(lotto_data)
-            break
+        # Push the data to the 'user' workbook if it is valid
+        push_to_user_workbook(lotto_data)
+        break

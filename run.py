@@ -48,7 +48,7 @@ def validate_data(values):
     bool: True if the data is valid, False otherwise.
     """
 
-    errors = []
+    errors_five_nums = []
 
     # If the input is a list, convert it to a comma-separated string
     if isinstance(values, list):
@@ -56,7 +56,7 @@ def validate_data(values):
 
     # Check if there are spaces between values and commas
     if any(' ' in value for value in values.split(',')):
-        errors.append("Error: Spaces not allowed between values and commas.")
+        errors_five_nums.append("Error: Spaces not allowed between values and commas.")
 
     # Convert each value to an integer and check if they are within
     # the range of 1 to 50
@@ -66,24 +66,24 @@ def validate_data(values):
             int_value = int(value)
             int_values.append(int_value)
         except ValueError as ve:
-            errors.append(f"Error: {ve}")
+            errors_five_nums.append(f"Error: {ve}")
 
     for value in int_values:
         if not 1 <= value <= 50:
-            errors.append("Error: Values should be between 1 and 50.")
+            errors_five_nums.append("Error: Values should be between 1 and 50.")
 
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
-        errors.append("Error: Exactly 5 values required.")
+        errors_five_nums.append("Error: Exactly 5 values required.")
         
     # Check if the numbers are unique
     if len(set(int_values)) != 5:
-        errors.append("Error: The 5 numbers should be unique.")
+        errors_five_nums.append("Error: The 5 numbers should be unique.")
 
-    if errors:
-        # Print the errors, if any, and return False indicating data is not valid
+    if errors_five_nums:
+        # Print the errors_five_nums, if any, and return False indicating data is not valid
         print()
-        for error in errors:
+        for error in errors_five_nums:
             print(error)
         print()
         print("* Please try again!")

@@ -144,7 +144,10 @@ def user_lotto_data():
             print("Error: Please enter valid integers for lucky numbers.")
 
     # Combine lotto_data_five_nums and lucky_numbers into a single list
-    # with a comma in between
+    # with a comma in between and sort the numbers in ascending order
+    lotto_data_five_nums = sorted([int(num) for num in lotto_data_five_nums])
+    lucky_numbers = sorted(lucky_numbers)
+
     lotto_data = lotto_data_five_nums + lucky_numbers
 
     return lotto_data
@@ -170,7 +173,7 @@ def push_to_user_workbook(lotto_data):
         # Insert data to B1 to F1 cells preceded by the string 'Numbers:' at A1
         data_for_cells_B1_to_H1.insert(0, "Numbers:")
 
-        # Update the individual cells within the range B1:F1 with the new data
+        # Update the individual cells within the range B1:H1 with the new data
         for col_index, value in enumerate(data_for_cells_B1_to_H1, start=1):
             user_workbook.update_cell(1, col_index, value)
 
@@ -203,9 +206,23 @@ if __name__ == "__main__":
 
         # Get user numbers lotto_data_five_nums and lucky_numbers
         # Sort the numbers
+        print()
+        
         user_ranking = SHEET.worksheet("user-ranking").get_all_values()
+        # split into three sublist before creating a table
         numbers_row = user_ranking[0]
+        num_text = [numbers_row[0]]
+        num_list = numbers_row[1:6]
+        num_lucky = numbers_row[6:8]
+        numbers_list = [num_text, num_list, num_lucky]
+
         rankings_row = user_ranking[-1]
-        print(numbers_row[0:8])
-        print(rankings_row[0:8])
+        rank_text = [rankings_row[0]]
+        rank_list = rankings_row[1:6]
+        rank_lucly = rankings_row[6:8]
+        rankings_list = [rank_text, rank_list, rank_lucly]
+
+        # Print the sorted lists
+        print(numbers_list)
+        print(rankings_list)
         break

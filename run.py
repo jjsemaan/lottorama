@@ -212,14 +212,12 @@ if __name__ == "__main__":
         user_ranking = SHEET.worksheet("user-ranking").get_all_values()
         # split into three sublist before creating a table
         numbers_row = user_ranking[0]
-        # num_text = [numbers_row[0]]
         num_list = numbers_row[1:6]
         num_lucky = numbers_row[6:8]
         numbers_list = [num_list]
         lucky_list = [num_lucky]
 
         rankings_row = user_ranking[-1]
-        # rank_text = [rankings_row[0]]
         rank_list = rankings_row[1:6]
         rank_lucky = rankings_row[6:8]
         rankings_list = [rank_list]

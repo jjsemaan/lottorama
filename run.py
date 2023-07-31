@@ -23,19 +23,6 @@ GSPREAD_CLIENT = gspread.authorize(SCOPED_CREDS)
 # Open the Google Sheets document named 'lottorama-data'
 SHEET = GSPREAD_CLIENT.open('lottorama-data')
 
-# Get data from the worksheet named 'euro' and store it as a list of lists
-# lotto_data = SHEET.worksheet('euro').get_all_values()
-
-# Print welcome message and instructions for the user
-print()
-print("Welcome to Lottorama!")
-print("Let us help you win the Euro Millions jackpot.")
-print()
-print("Please enter your favorite Euro Millions ticket numbers.")
-print("Enter five numbers, strictly unique, between 1 and 50,")
-print("with commas in between and no spaces.")
-print("Example: 7,45,34,23,49\n")
-
 
 def validate_data(values):
     """
@@ -102,7 +89,8 @@ def user_lotto_data():
     Runs a while loop until correct data is entered.
 
     Returns:
-    list: A list of user-entered Euro Millions ticket numbers and lucky numbers.
+    list: A list of user-entered Euro Millions ticket numbers
+    and lucky numbers.
     """
 
     # Print the last draw date and winning numbers only once at the start
@@ -113,7 +101,12 @@ def user_lotto_data():
     winning_numbers_str = ""
     for number in last_draw[1:6]:
         winning_numbers_str += number + ' '
-    print(f"Winning numbers: {winning_numbers_str}\n")
+    print(f"Winning numbers: {winning_numbers_str}")
+    
+    winning_lucky_numbers_str = ""
+    for number in last_draw[6:8]:
+        winning_lucky_numbers_str += number + ' '
+    print(f"Lucky numbers: {winning_lucky_numbers_str}\n")
 
     while True:
         # Get user input for Euro Millions ticket numbers
@@ -149,7 +142,8 @@ def user_lotto_data():
         except ValueError:
             print("Error: Please enter valid integers for lucky numbers.")
 
-    # Combine lotto_data_five_nums and lucky_numbers into a single list with a comma in between
+    # Combine lotto_data_five_nums and lucky_numbers into a single list
+    # with a comma in between
     lotto_data = lotto_data_five_nums + lucky_numbers
 
     return lotto_data
@@ -183,6 +177,14 @@ def push_to_user_workbook(lotto_data):
     except Exception as e:
         print("An error occurred while pushing data to the 'user' workbook:")
         print(e)
+    
+    # Get user numbers lotto_data_five_nums and lucky_numbers
+    # Sort the numbers
+    user_numbers = lotto_data
+    print(f"Your Numbers: {user_numbers}")
+    user_ranking = SHEET.worksheet("user-ranking").get_all_values()
+    rankings_row = user_ranking[-1]
+    print(f"Rankings: {rankings_row[0]}")
 
 
 if __name__ == "__main__":

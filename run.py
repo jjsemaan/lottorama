@@ -2,6 +2,7 @@
 import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
+import time
 
 # Define the required Google Sheets API scope permissions
 SCOPE = [
@@ -177,14 +178,6 @@ def push_to_user_workbook(lotto_data):
     except Exception as e:
         print("An error occurred while pushing data to the 'user' workbook:")
         print(e)
-    
-    # Get user numbers lotto_data_five_nums and lucky_numbers
-    # Sort the numbers
-    user_numbers = lotto_data
-    print(f"Your Numbers: {user_numbers}")
-    user_ranking = SHEET.worksheet("user-ranking").get_all_values()
-    rankings_row = user_ranking[-1]
-    print(f"Rankings: {rankings_row[0]}")
 
 
 if __name__ == "__main__":
@@ -204,4 +197,15 @@ if __name__ == "__main__":
 
         # Push the data to the 'user' workbook if it is valid
         push_to_user_workbook(lotto_data)
+
+        # Delay execution by 2 seconds to allow workbook updates
+        time.sleep(2)
+
+        # Get user numbers lotto_data_five_nums and lucky_numbers
+        # Sort the numbers
+        user_ranking = SHEET.worksheet("user-ranking").get_all_values()
+        numbers_row = user_ranking[0]
+        rankings_row = user_ranking[-1]
+        print(numbers_row[0:8])
+        print(rankings_row[0:8])
         break

@@ -226,8 +226,8 @@ if __name__ == "__main__":
         rankings_lucky = [rank_lucky]
 
         # Print about table
-        print("""The below table provides info on repeat wins
-        of each number from previous all-time draws.""")
+        print("""The below table provides info on repeat wins on 
+each of your numbers from previous all-time draws.""")
 
         # Add blank values to num_lucky and rank_lucky to match 
         # the length of num_list otherwise this lacing to shortest by default

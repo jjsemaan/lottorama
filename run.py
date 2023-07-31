@@ -3,6 +3,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 import time
+from tabulate import tabulate
 
 # Define the required Google Sheets API scope permissions
 SCOPE = [
@@ -211,18 +212,34 @@ if __name__ == "__main__":
         user_ranking = SHEET.worksheet("user-ranking").get_all_values()
         # split into three sublist before creating a table
         numbers_row = user_ranking[0]
-        num_text = [numbers_row[0]]
+        # num_text = [numbers_row[0]]
         num_list = numbers_row[1:6]
         num_lucky = numbers_row[6:8]
-        numbers_list = [num_text, num_list, num_lucky]
+        numbers_list = [num_list]
+        lucky_list = [num_lucky]
 
         rankings_row = user_ranking[-1]
-        rank_text = [rankings_row[0]]
+        # rank_text = [rankings_row[0]]
         rank_list = rankings_row[1:6]
-        rank_lucly = rankings_row[6:8]
-        rankings_list = [rank_text, rank_list, rank_lucly]
+        rank_lucky = rankings_row[6:8]
+        rankings_list = [rank_list]
+        rankings_lucky = [rank_lucky]
 
-        # Print the sorted lists
-        print(numbers_list)
-        print(rankings_list)
+        # Print about table
+        print("""The below table provides info on repeat wins
+        of each number from previous all-time draws.""")
+
+        # Add blank values to num_lucky and rank_lucky to match 
+        # the length of num_list otherwise this lacing to shortest by default
+        num_lucky += [""] * (len(num_list) - len(num_lucky))
+        rank_lucky += [""] * (len(num_list) - len(rank_lucky))
+
+        # Create a 2D list with each element in a separate row
+        data = []
+        for i in range(len(num_list)):
+            data.append([num_list[i], rank_list[i], num_lucky[i], rank_lucky[i]])
+
+        # Print the table
+        headers = ["Numbers", "Wins", "Lucky Numbers", "Wins"]
+        print(tabulate(data, headers=headers, tablefmt="pretty"))
         break

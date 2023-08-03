@@ -250,10 +250,54 @@ each of your numbers from previous all-time draws.""")
         headers = ["Numbers", "Wins", "Lucky Numbers", "Wins"]
         print(tabulate(data, headers=headers, tablefmt="pretty"))
 
-        # Transpose the results
+        # Convert lists to integers and transpose the results
+        num_list = [int(num) for num in num_list]
+        rank_list = [int(rank) for rank in rank_list]
         transpose_nums = list(zip(num_list, rank_list))
         transpose_lucky = list(zip(numbers_row[6:8], rankings_row[6:8]))
-        
+
+        # Filter out the pairs by index 1 and store the corresponding index 0 numbers
+        popular_numbers = []
+        moderately_popular_numbers = []
+        least_popular_numbers = []
+
+        try:
+            for pair in transpose_nums:
+                if pair[1] >= 5:
+                    popular_numbers.append(pair[0])
+                elif pair[1] == 4:
+                    moderately_popular_numbers.append(pair[0])
+                elif pair[1] <= 3:
+                    least_popular_numbers.append(pair[0])
+        except IndexError:
+            pass
+
+        # Count the numbers that are greater than or equal to 5
+        # Count the numbers that are equal to 4
+        # Count the numbers that are less than or equal to 3
+        count_popular = len(popular_numbers)
+        count_moderately_popular = len(moderately_popular_numbers)
+        count_least_popular = len(least_popular_numbers)
+
+        if count_least_popular == 1:
+            clp_numbers = "number"
+        else:
+            clp_numbers = "numbers"
+
+        if count_moderately_popular == 1:
+            cmp_numbers = "number"
+        else:
+            cmp_numbers = "numbers"
+
+        if count_popular == 1:
+            cp_numbers = "number"
+        else:
+            cp_numbers = "numbers"
+                            
+        print(f"You have {count_popular} {cp_numbers} {popular_numbers} listed in the most popular winning numbers.")
+        print(f"You have {count_moderately_popular} {cmp_numbers} {moderately_popular_numbers} listed in the moderately popular winning numbers.")
+        print(f"You have {count_least_popular} {clp_numbers} {least_popular_numbers} listed in the least popular winning numbers.")
+                
         print(transpose_nums)
         print(transpose_lucky)
         break

@@ -60,7 +60,7 @@ def validate_data(values):
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
         errors_five_nums.append("Error: Exactly 5 values required.")
-        print("Error: Exactly 5 values required!")
+        print("Error: Exactly 5 whole numbers required!")
         print()
         return False
 
@@ -125,8 +125,17 @@ def user_lotto_data():
 
     while True:
         # Get user input for the 2 lucky numbers between 1 and 12
-        lucky_numbers = []
         lucky_numbers_str = input("Enter your two lucky numbers (separated by commas): ")
+
+        # Check if the input contains spaces
+        if " " in lucky_numbers_str:
+            print("Error: Spaces are not allowed. Please re-enter lucky numbers without spaces.")
+            continue
+
+        # Remove spaces from the input string
+        lucky_numbers_str = lucky_numbers_str.replace(" ", "")
+
+        # Split the input by commas
         lucky_numbers = lucky_numbers_str.split(",")
 
         # Validate the user-entered data for lucky numbers
@@ -142,7 +151,7 @@ def user_lotto_data():
             else:
                 print("Error: Lucky numbers should be two integers between 1 and 12.")
         except ValueError:
-            print("Error: Please enter valid integers for lucky numbers.")
+            print("Error: Please enter only two valid integers for lucky numbers.")
 
     # Combine lotto_data_five_nums and lucky_numbers into a single list
     # with a comma in between and sort the numbers in ascending order
@@ -240,4 +249,11 @@ each of your numbers from previous all-time draws.""")
         # Print the table
         headers = ["Numbers", "Wins", "Lucky Numbers", "Wins"]
         print(tabulate(data, headers=headers, tablefmt="pretty"))
+
+        # Transpose the results
+        transpose_nums = list(zip(num_list, rank_list))
+        transpose_lucky = list(zip(numbers_row[6:8], rankings_row[6:8]))
+        
+        print(transpose_nums)
+        print(transpose_lucky)
         break

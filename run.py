@@ -293,7 +293,8 @@ each of your numbers from previous all-time draws.""")
             cp_numbers = "number"
         else:
             cp_numbers = "numbers"
-                            
+                        
+        # Summary of winning numbers
         print(f"You have {count_popular} {cp_numbers} {popular_numbers} listed in the most popular winning numbers.")
         print(f"You have {count_moderately_popular} {cmp_numbers} {moderately_popular_numbers} listed in the moderately popular winning numbers.")
         print(f"You have {count_least_popular} {clp_numbers} {least_popular_numbers} listed in the least popular winning numbers.")

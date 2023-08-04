@@ -254,9 +254,13 @@ each of your numbers from previous all-time draws.""")
         num_list = [int(num) for num in num_list]
         rank_list = [int(rank) for rank in rank_list]
         transpose_nums = list(zip(num_list, rank_list))
-        transpose_lucky = list(zip(numbers_row[6:8], rankings_row[6:8]))
+        
+        lucky_list = [int(num) for num in numbers_row[6:8]]
+        rank_lucky = [int(rank) for rank in rankings_row[6:8]]
+        transpose_lucky = list(zip(lucky_list, rank_lucky))
 
-        # Filter out the pairs by index 1 and store the corresponding index 0 numbers
+        # Filter out the pairs by index 1 and store 
+        # the corresponding index 0 numbers
         popular_numbers = []
         moderately_popular_numbers = []
         least_popular_numbers = []
@@ -271,6 +275,7 @@ each of your numbers from previous all-time draws.""")
                     least_popular_numbers.append(pair[0])
         except IndexError:
             pass
+
 
         # Count the numbers that are greater than or equal to 5
         # Count the numbers that are equal to 4
@@ -293,12 +298,64 @@ each of your numbers from previous all-time draws.""")
             cp_numbers = "number"
         else:
             cp_numbers = "numbers"
+
+        # Count the numbers that are greater than or equal to 5
+        # Count the numbers that are equal to 4
+        # Count the numbers that are less than or equal to 3
+        
+        popular_lucky_nums = []
+        moderately_popular_lucky_nums = []
+        least_popular_lucky_nums = []
+        print(transpose_lucky)
+        print(transpose_nums)
+
+        try:
+            for pair in transpose_lucky:
+                if pair[1] >= 7:
+                    popular_lucky_nums.append(pair[0])
+                elif pair[1] == 6:
+                    moderately_popular_lucky_nums.append(pair[0])
+                elif pair[1] <= 5:
+                    least_popular_lucky_nums.append(pair[0])
+        except IndexError:
+            pass
+        
+        count_popular_lucky = len(popular_lucky_nums)
+        count_moderately_popular_lucky = len(moderately_popular_lucky_nums)
+        count_least_popular_lucky = len(least_popular_lucky_nums)
+
+        if count_least_popular_lucky == 1:
+            clpl_numbers = "number"
+        else:
+            clpl_numbers = "numbers"
+
+        if count_moderately_popular_lucky == 1:
+            cmpl_numbers = "number"
+        else:
+            cmpl_numbers = "numbers"
+
+        if count_popular_lucky == 1:
+            cpl_numbers = "number"
+        else:
+            cpl_numbers = "numbers"
                         
         # Summary of winning numbers
-        print(f"You have {count_popular} {cp_numbers} {popular_numbers} listed in the most popular winning numbers.")
-        print(f"You have {count_moderately_popular} {cmp_numbers} {moderately_popular_numbers} listed in the moderately popular winning numbers.")
-        print(f"You have {count_least_popular} {clp_numbers} {least_popular_numbers} listed in the least popular winning numbers.")
-                
+        print("Table Summary:")
+        print(f"You have {count_popular} {cp_numbers} {popular_numbers} \
+listed in the most popular winning numbers.")
+        print(f"You have {count_moderately_popular} {cmp_numbers} \
+{moderately_popular_numbers} listed in the moderately popular winning numbers.")
+        print(f"You have {count_least_popular} {clp_numbers} \
+{least_popular_numbers} listed in the least popular winning numbers.")
+        print()
+        print("Table Summary:")
+        print(f"You have {count_popular_lucky} {cpl_numbers} {popular_lucky_nums} \
+listed in the most popular lucky winning numbers.")
+        print(f"You have {count_moderately_popular_lucky} {cmpl_numbers} \
+{moderately_popular_lucky_nums} listed in the moderately popular lucky winning numbers.")
+        print(f"You have {count_least_popular_lucky} {clpl_numbers} \
+{least_popular_lucky_nums} listed in the least popular winning numbers.")
+               
         print(transpose_nums)
         print(transpose_lucky)
         break

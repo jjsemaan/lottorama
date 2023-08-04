@@ -305,8 +305,6 @@ each of your numbers from previous all-time draws.""")
         popular_lucky_nums = []
         moderately_popular_lucky_nums = []
         least_popular_lucky_nums = []
-        # print(transpose_lucky)
-        # print(transpose_nums)
 
         try:
             for pair in transpose_lucky:
@@ -356,8 +354,7 @@ listed in the most popular winning numbers.")
         print(f"You have {count_least_popular_lucky} {clpl_numbers} \
 {least_popular_lucky_nums} listed in the least popular winning numbers.")
         break
-        # print(transpose_nums)
-        # print(transpose_lucky)
+
     # Prompt for user's choice to quit or modify
     while True:
         print()
@@ -382,11 +379,20 @@ listed in the most popular winning numbers.")
             valid_numbers = set(map(str, num_list))
             if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) <= 4:
                 print("Thank you for modifying your preferred numbers!")
+
                 # get the 50 lotto numbers and their rankings
                 num_ranks = SHEET.worksheet("num-ranks").get_all_values()
                 all_nums = num_ranks[0]
                 all_num_stats = num_ranks[1]
 
+                # Convert lists to integers and transpose the results
+                all_nums = [int(num) for num in all_nums]
+                all_num_stats = [int(rank) for rank in all_num_stats]
+                transpose_all_nums = list(zip(all_nums, all_num_stats))
                 
+
+                print(all_nums)
+                print(all_num_stats) 
+                print(transpose_all_nums)  
                 
         break

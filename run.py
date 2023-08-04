@@ -3,6 +3,7 @@ import gspread
 from google.oauth2.service_account import Credentials
 from pprint import pprint
 import time
+import random
 from tabulate import tabulate
 
 # Define the required Google Sheets API scope permissions
@@ -211,12 +212,13 @@ if __name__ == "__main__":
         # Push the data to the 'user' workbook if it is valid
         push_to_user_workbook(lotto_data)
 
-        # Delay execution by 2 seconds to allow workbook updates
-        time.sleep(2)
-        print()
-
+        # Delay execution by 5 seconds to allow workbook updates
+        print("Gathering data! Please wait 5 seconds...")
+        time.sleep(5)
+        
         # Get user numbers lotto_data_five_nums and lucky_numbers
         user_ranking = SHEET.worksheet("user-ranking").get_all_values()
+
         # split into three sublist before creating a table
         numbers_row = user_ranking[0]
         num_list = numbers_row[1:6]
@@ -367,7 +369,7 @@ listed in the most popular winning numbers.")
         elif user_input_lower == 'm':
             preferred_numbers_input = input("From your chosen numbers "
                                             f"{num_list}\n"
-                                            "Input the numbers you would like to keep (up to four numbers), separated by commas: ")
+                                            "Input two numbers you would like to keep, separated by commas: ")
             
             # Validate user input for preferred numbers
             preferred_numbers = preferred_numbers_input.split(',')
@@ -375,7 +377,7 @@ listed in the most popular winning numbers.")
 
             # Check if the input contains only numbers from the original list
             valid_numbers = set(map(str, num_list))
-            if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) <= 4:
+            if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
                 print("Thank you for modifying your preferred numbers!")
 
                 # Count how many numbers the user inputs
@@ -415,6 +417,21 @@ listed in the most popular winning numbers.")
 
                 print(all_nums)
                 print(all_num_stats) 
-                print(transpose_all_nums)  
+                print(transpose_all_nums)
+                print(high_ranks)
+
+                # Convert preferred_numbers to a set for faster membership checking
+                preferred_numbers_set = set(preferred_numbers)
+
+                # Create a list of available numbers for random selection
+                # Pick 2 random numbers from list_a (not in preferred_numbers) and 1 random number from list_b (not in preferred_numbers and not in random_numbers_list_a)
+                available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
+                random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
+                available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
+                random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks)
+                
+                # Combine all five numbers into a list named predicted_numbers
+                predicted_numbers = preferred_numbers + random_numbers_high_ranks + [random_number_moderate_ranks]
+                print(f"Predicted numbers: {predicted_numbers}")
                 
         break

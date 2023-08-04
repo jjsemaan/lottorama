@@ -254,7 +254,7 @@ each of your numbers from previous all-time draws.""")
         num_list = [int(num) for num in num_list]
         rank_list = [int(rank) for rank in rank_list]
         transpose_nums = list(zip(num_list, rank_list))
-        
+
         lucky_list = [int(num) for num in numbers_row[6:8]]
         rank_lucky = [int(rank) for rank in rankings_row[6:8]]
         transpose_lucky = list(zip(lucky_list, rank_lucky))
@@ -275,7 +275,6 @@ each of your numbers from previous all-time draws.""")
                     least_popular_numbers.append(pair[0])
         except IndexError:
             pass
-
 
         # Count the numbers that are greater than or equal to 5
         # Count the numbers that are equal to 4
@@ -306,8 +305,8 @@ each of your numbers from previous all-time draws.""")
         popular_lucky_nums = []
         moderately_popular_lucky_nums = []
         least_popular_lucky_nums = []
-        print(transpose_lucky)
-        print(transpose_nums)
+        # print(transpose_lucky)
+        # print(transpose_nums)
 
         try:
             for pair in transpose_lucky:
@@ -349,13 +348,18 @@ listed in the most popular winning numbers.")
 {least_popular_numbers} listed in the least popular winning numbers.")
         print()
         print("Table Summary:")
-        print(f"You have {count_popular_lucky} {cpl_numbers} {popular_lucky_nums} \
-listed in the most popular lucky winning numbers.")
+        print(f"You have {count_popular_lucky} {cpl_numbers} \
+{popular_lucky_nums} listed in the most popular lucky winning numbers.")
         print(f"You have {count_moderately_popular_lucky} {cmpl_numbers} \
 {moderately_popular_lucky_nums} listed in the moderately popular lucky winning numbers.")
         print(f"You have {count_least_popular_lucky} {clpl_numbers} \
 {least_popular_lucky_nums} listed in the least popular winning numbers.")
                
-        print(transpose_nums)
-        print(transpose_lucky)
+        # print(transpose_nums)
+        # print(transpose_lucky)
+    # Prompt for user's choice to quit or modify
+    while True:
+        user_input = input("Now that you know about the rankings of your chosen numbers\n"
+                        f"From your chosen numbers {num_list}\n"
+                        "Input 'Q' to quit or 'M' to modify: ")
         break

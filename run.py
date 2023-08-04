@@ -377,5 +377,16 @@ listed in the most popular winning numbers.")
             # Validate user input for preferred numbers
             preferred_numbers = preferred_numbers_input.split(',')
             preferred_numbers = [num.strip() for num in preferred_numbers]
-            
+
+            # Check if the input contains only numbers from the original list
+            valid_numbers = set(map(str, num_list))
+            if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) <= 4:
+                print("Thank you for modifying your preferred numbers!")
+                # get the 50 lotto numbers and their rankings
+                num_ranks = SHEET.worksheet("num-ranks").get_all_values()
+                all_nums = num_ranks[0]
+                all_num_stats = num_ranks[1]
+
+                
+                
         break

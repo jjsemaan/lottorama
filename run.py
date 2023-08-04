@@ -213,11 +213,9 @@ if __name__ == "__main__":
 
         # Delay execution by 2 seconds to allow workbook updates
         time.sleep(2)
+        print()
 
         # Get user numbers lotto_data_five_nums and lucky_numbers
-        # Sort the numbers
-        print()
-        
         user_ranking = SHEET.worksheet("user-ranking").get_all_values()
         # split into three sublist before creating a table
         numbers_row = user_ranking[0]
@@ -389,7 +387,28 @@ listed in the most popular winning numbers.")
                 all_nums = [int(num) for num in all_nums]
                 all_num_stats = [int(rank) for rank in all_num_stats]
                 transpose_all_nums = list(zip(all_nums, all_num_stats))
-                
+
+                high_ranks = []
+                moderate_ranks = []
+                least_ranks = []
+
+                try:
+                    for pair in transpose_all_nums:
+                        if pair[1] >= 5:
+                            high_ranks.append(pair[0])
+                        elif pair[1] == 4:
+                            moderate_ranks.append(pair[0])
+                        elif pair[1] <= 3:
+                            least_ranks.append(pair[0])
+                except IndexError:
+                    pass
+
+                # Count the ranks that are greater than or equal to 5
+                # Count the ranks that are equal to 4
+                # Count the ranks that are less than or equal to 3
+                count_high_ranks = len(high_ranks)
+                count_moderate_ranks = len(moderate_ranks)
+                count_least_ranks = len(least_ranks)
 
                 print(all_nums)
                 print(all_num_stats) 

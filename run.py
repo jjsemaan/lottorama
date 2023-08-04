@@ -354,12 +354,15 @@ listed in the most popular winning numbers.")
 {moderately_popular_lucky_nums} listed in the moderately popular lucky winning numbers.")
         print(f"You have {count_least_popular_lucky} {clpl_numbers} \
 {least_popular_lucky_nums} listed in the least popular winning numbers.")
-               
+        break
         # print(transpose_nums)
         # print(transpose_lucky)
     # Prompt for user's choice to quit or modify
     while True:
-        user_input = input("Now that you know about the rankings of your chosen numbers\n"
-                        f"From your chosen numbers {num_list}\n"
-                        "Input 'Q' to quit or 'M' to modify: ")
+        print()
+        user_input = input("Now that you know about the rankings of your \n"
+                            f"chosen numbers {num_list}\n"
+        "Input 'Q' to quit, \
+'M' to modify or \
+'R' to start allover!")
         break

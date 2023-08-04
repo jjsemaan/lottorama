@@ -339,6 +339,7 @@ each of your numbers from previous all-time draws.""")
             cpl_numbers = "numbers"
                         
         # Summary of winning numbers
+        print()
         print("Table Summary:")
         print(f"You have {count_popular} {cp_numbers} {popular_numbers} \
 listed in the most popular winning numbers.")
@@ -347,7 +348,7 @@ listed in the most popular winning numbers.")
         print(f"You have {count_least_popular} {clp_numbers} \
 {least_popular_numbers} listed in the least popular winning numbers.")
         print()
-        print("Table Summary:")
+
         print(f"You have {count_popular_lucky} {cpl_numbers} \
 {popular_lucky_nums} listed in the most popular lucky winning numbers.")
         print(f"You have {count_moderately_popular_lucky} {cmpl_numbers} \
@@ -360,9 +361,21 @@ listed in the most popular winning numbers.")
     # Prompt for user's choice to quit or modify
     while True:
         print()
-        user_input = input("Now that you know about the rankings of your \n"
-                            f"chosen numbers {num_list}\n"
-        "Input 'Q' to quit, \
-'M' to modify or \
-'R' to start allover!")
+        user_input = input("Now that you know about the rankings of your \n"                         
+                            "Input 'Q' to quit, 'M' to modify or 'R' to start allover!")
+
+        # Validate user input for quit, modify, or repeat
+        user_input_lower = user_input.lower()
+        if user_input_lower == 'q':
+            print("Good Luck! Please come back if you do not win.")
+            break
+        elif user_input_lower == 'm':
+            preferred_numbers_input = input("From your chosen numbers "
+                                            f"{num_list}\n"
+                                            "Input the numbers you would like to keep (up to four numbers), separated by commas: ")
+            
+            # Validate user input for preferred numbers
+            preferred_numbers = preferred_numbers_input.split(',')
+            preferred_numbers = [num.strip() for num in preferred_numbers]
+            
         break

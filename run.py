@@ -378,6 +378,9 @@ listed in the most popular winning numbers.")
             if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) <= 4:
                 print("Thank you for modifying your preferred numbers!")
 
+                # Count how many numbers the user inputs
+                pref_numbers_count = len(preferred_numbers_input.split(','))
+
                 # get the 50 lotto numbers and their rankings
                 num_ranks = SHEET.worksheet("num-ranks").get_all_values()
                 all_nums = num_ranks[0]

@@ -1,7 +1,7 @@
 # Import required libraries
 import gspread
 from google.oauth2.service_account import Credentials
-from pprint import pprint
+# from pprint import pprint
 import time
 import random
 from tabulate import tabulate
@@ -13,8 +13,10 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-# Load the credentials from the service account JSON file 'creds.json' 
-# and specify the scope
+""" 
+Load the credentials from the service account JSON file 'creds.json' 
+and specify the scope
+"""
 CREDS = Credentials.from_service_account_file('creds.json', scopes=SCOPE)
 
 # Create a new credentials object with the specified scope
@@ -48,8 +50,10 @@ def validate_data(values):
     if any(' ' in value for value in values.split(',')):
         errors_five_nums.append("Error: Spaces not allowed between values and commas.")
 
-    # Convert each value to an integer and check if they are within
-    # the range of 1 to 50
+    """
+    Convert each value to an integer and check if they are within
+    the range of 1 to 50
+    """
     int_values = []
     for value in values.split(','):
         try:
@@ -154,8 +158,10 @@ def user_lotto_data():
         except ValueError:
             print("Error: Please enter only two valid integers for lucky numbers.")
 
-    # Combine lotto_data_five_nums and lucky_numbers into a single list
-    # with a comma in between and sort the numbers in ascending order
+    """
+    Combine lotto_data_five_nums and lucky_numbers into a single list
+    with a comma in between and sort the numbers in ascending order
+    """
     lotto_data_five_nums = sorted([int(num) for num in lotto_data_five_nums])
     lucky_numbers = sorted(lucky_numbers)
 
@@ -260,8 +266,10 @@ def play_lottorama_game():
             rank_lucky = [int(rank) for rank in rankings_row[6:8]]
             transpose_lucky = list(zip(lucky_list, rank_lucky))
 
-            # Filter out the pairs by index 1 and store 
-            # the corresponding index 0 numbers
+            """
+            Filter out the pairs by index 1 and store 
+            the corresponding index 0 numbers
+            """
             popular_numbers = []
             moderately_popular_numbers = []
             least_popular_numbers = []
@@ -277,9 +285,7 @@ def play_lottorama_game():
             except IndexError:
                 pass
 
-            # Count the numbers that are greater than or equal to 5
-            # Count the numbers that are equal to 4
-            # Count the numbers that are less than or equal to 3
+            # Count the length of these lists
             count_popular = len(popular_numbers)
             count_moderately_popular = len(moderately_popular_numbers)
             count_least_popular = len(least_popular_numbers)
@@ -299,10 +305,11 @@ def play_lottorama_game():
             else:
                 cp_numbers = "numbers"
 
-            # Count the numbers that are greater than or equal to 5
-            # Count the numbers that are equal to 4
-            # Count the numbers that are less than or equal to 3
-            
+            """
+            Count the numbers that are greater than or equal to 5
+            Count the numbers that are equal to 4
+            Count the numbers that are less than or equal to 3
+            """
             popular_lucky_nums = []
             moderately_popular_lucky_nums = []
             least_popular_lucky_nums = []
@@ -347,7 +354,7 @@ listed in the most popular winning numbers.")
             print(f"You have {count_least_popular} {clp_numbers} \
 {least_popular_numbers} listed in the least popular winning numbers.")
             print()
-
+            # Summary of lucky winning numbers
             print(f"You have {count_popular_lucky} {cpl_numbers} \
 {popular_lucky_nums} listed in the most popular lucky winning numbers.")
             print(f"You have {count_moderately_popular_lucky} {cmpl_numbers} \

@@ -359,7 +359,7 @@ listed in the most popular winning numbers.")
     while True:
         print()
         user_input = input("Now that you know about the rankings of your \n"                         
-                            "Input 'Q' to quit, 'M' to modify or 'R' to start allover!")
+                            "Input 'Q' to quit, 'M' to modify or 'R' to start allover! ")
 
         # Validate user input for quit, modify, or repeat
         user_input_lower = user_input.lower()
@@ -427,11 +427,20 @@ listed in the most popular winning numbers.")
                 # Pick 2 random numbers from list_a (not in preferred_numbers) and 1 random number from list_b (not in preferred_numbers and not in random_numbers_list_a)
                 available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
                 random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
+
                 available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
-                random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks)
-                
-                # Combine all five numbers into a list named predicted_numbers
-                predicted_numbers = preferred_numbers + random_numbers_high_ranks + [random_number_moderate_ranks]
-                print(f"Predicted numbers: {predicted_numbers}")
+
+                # Ensure that random_number_moderate_ranks is None if available_numbers_moderate_ranks is empty
+                random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks) if available_numbers_moderate_ranks else None
+
+                # Combine all five numbers into a list named initial_predicted_numbers
+                initial_predicted_numbers = preferred_numbers + random_numbers_high_ranks
+                if random_number_moderate_ranks is not None:
+                    initial_predicted_numbers.append(random_number_moderate_ranks)
+                # Convert all elements to integers using list comprehension
+                predicted_numbers = [int(num) for num in initial_predicted_numbers]
+                #Sort predicted numbers
+                sorted_predicted_numbers = sorted(predicted_numbers)
+                print(f"Predicted numbers: {sorted_predicted_numbers}")
                 
         break

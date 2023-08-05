@@ -115,6 +115,13 @@ def user_lotto_data():
         winning_lucky_numbers_str += number + ' '
     print(f"Lucky numbers: {winning_lucky_numbers_str}\n")
 
+    # Instructions
+    print("Instructions:")
+    print("Enter five numbers, strictly unique, between 1 and 50,")
+    print("with commas in between and no spaces.")
+    print("Example: 7,45,34,23,49\n")
+    print()
+
     while True:
         # Get user input for Euro Millions ticket numbers
         lotto_data_five_nums = []
@@ -194,7 +201,6 @@ def push_to_user_workbook(lotto_data):
         for col_index, value in enumerate(data_for_cells_B1_to_H1, start=1):
             user_workbook.update_cell(1, col_index, value)
 
-        print("Your data has been successfully updated in the 'user' workbook!")
     except Exception as e:
         print("An error occurred while pushing data to the 'user' workbook:")
         print(e)
@@ -207,10 +213,8 @@ def play_lottorama_game():
         print("Welcome to Lottorama!")
         print("Let us help you win the Euro Millions jackpot.")
         print()
-        print("Please enter your favorite Euro Millions ticket numbers.")
-        print("Enter five numbers, strictly unique, between 1 and 50,")
-        print("with commas in between and no spaces.")
-        print("Example: 7,45,34,23,49\n")
+        print("Gathering data! Please wait for 5 seconds...")
+        print()
 
         while True:
             # Get user-entered Euro Millions ticket numbers
@@ -222,6 +226,7 @@ def play_lottorama_game():
             # Delay execution by 5 seconds to allow workbook updates
             print("Gathering data! Please wait 5 seconds...")
             time.sleep(5)
+            print()
             
             # Get user numbers lotto_data_five_nums and lucky_numbers
             user_ranking = SHEET.worksheet("user-ranking").get_all_values()
@@ -230,18 +235,15 @@ def play_lottorama_game():
             numbers_row = user_ranking[0]
             num_list = numbers_row[1:6]
             num_lucky = numbers_row[6:8]
-            # numbers_list = [num_list]
             lucky_list = [num_lucky]
 
             rankings_row = user_ranking[-1]
             rank_list = rankings_row[1:6]
             rank_lucky = rankings_row[6:8]
-            # rankings_list = [rank_list]
-            # rankings_lucky = [rank_lucky]
 
             # Print about table
             print("""The below table provides info on repeat wins on 
-    each of your numbers from previous all-time draws.""")
+each of your numbers from previous all-time draws.""")
 
             # Add blank values to num_lucky and rank_lucky to match 
             # the length of num_list otherwise this lacing to shortest by default
@@ -361,124 +363,127 @@ listed in the most popular winning numbers.")
 {moderately_popular_lucky_nums} listed in the moderately popular lucky winning numbers.")
             print(f"You have {count_least_popular_lucky} {clpl_numbers} \
 {least_popular_lucky_nums} listed in the least popular winning numbers.")
-
+            
             # Prompt for user's choice to quit or modify
             print()
-            user_input = input("Now that you know about the rankings of your numbers \n"                         
-                                "Input 'Q' to quit, 'M' to modify or 'R' to start allover! ")
+            print("Now that you have statistics about your numbers,")
 
-            # Validate user input for quit, modify, or repeat
-            user_input_lower = user_input.lower()
-            if user_input_lower == 'q':
-                print("Good Luck Winning the Euro Millions!")
-                return  # Exit the function and terminate the game
-            elif user_input_lower == 'm':
-                while True:
-                    preferred_numbers_input = input("From your chosen numbers "
-                                                    f"{num_list}\n"
-                                                    "Input two numbers you would like to keep, separated by commas: ")
-                    
-                    # Validate user input for preferred numbers
-                    preferred_numbers = preferred_numbers_input.split(',')
-                    preferred_numbers = [num.strip() for num in preferred_numbers]
-
-                    # Check if there are any empty values between commas
-                    preferred_numbers = preferred_numbers_input.split(',')
-                    if any(num == '' for num in preferred_numbers):
-                        print("Error: Empty values between commas are not allowed.")
-                        continue
-
-                    # Check if the input contains only numbers from the original list
-                    valid_numbers = set(map(str, num_list))
-                    if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
-                        print("Thank you for modifying your preferred numbers!")
-
-                        # get the 50 lotto numbers and their rankings
-                        num_ranks = SHEET.worksheet("num-ranks").get_all_values()
-                        all_nums = num_ranks[0]
-                        all_num_stats = num_ranks[1]
-
-                        # Convert lists to integers and transpose the results
-                        all_nums = [int(num) for num in all_nums]
-                        all_num_stats = [int(rank) for rank in all_num_stats]
-                        transpose_all_nums = list(zip(all_nums, all_num_stats))
-
-                        high_ranks = []
-                        moderate_ranks = []
-                        least_ranks = []
-
-                        try:
-                            for pair in transpose_all_nums:
-                                if pair[1] >= 5:
-                                    high_ranks.append(pair[0])
-                                elif pair[1] == 4:
-                                    moderate_ranks.append(pair[0])
-                                elif pair[1] <= 3:
-                                    least_ranks.append(pair[0])
-                        except IndexError:
-                            pass
-
-                        print(all_nums)
-                        print(all_num_stats) 
-                        print(transpose_all_nums)
-                        print(high_ranks)
-
-                        # Convert preferred_numbers to a set
-                        preferred_numbers_set = set(preferred_numbers)
-
-                        """
-                        Pick 2 random numbers from list_a (not in preferred_numbers) and 
-                        1 random number from list_b (not in preferred_numbers and 
-                        not in random_numbers_list_a)
-                        """
-                        available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
-                        random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
-
-                        available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
-
-                        """
-                        Ensure that random_number_moderate_ranks is None 
-                        if available_numbers_moderate_ranks is empty
-                        """
-                        random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks) if available_numbers_moderate_ranks else None
-
-                        # Combine all five numbers into a list named initial_predicted_numbers
-                        initial_predicted_numbers = preferred_numbers + random_numbers_high_ranks
-                        if random_number_moderate_ranks is not None:
-                            initial_predicted_numbers.append(random_number_moderate_ranks)
-                            
-                        # Convert all elements to integers using list comprehension
-                        predicted_numbers = [int(num) for num in initial_predicted_numbers]
-                        #Sort predicted numbers
-                        sorted_predicted_numbers = sorted(predicted_numbers)
-                        print(f"Predicted numbers: {sorted_predicted_numbers}")
+            while True:
+                user_input = input("Enter 'Q' to quit, 'M' to modify or 'R' to start allover! ")
+                print()
+                # Validate user input for quit, modify, or repeat
+                user_input_lower = user_input.lower()
+                if user_input_lower == 'q':
+                    print("Good Luck Winning the Euro Millions!")
+                    return  # Exit the function and terminate the game
+                elif user_input_lower == 'm':
+                    while True:
+                        preferred_numbers_input = input("From your chosen numbers "
+                                                        f"{num_list}\n"
+                                                        "Enter two numbers you would like to keep, separated by commas and we will repeat the remaining ones: ")
                         
-                        # Prompt for user's choice to play again
-                        print()
-                        play_again_input = input("Do you wish to play again? Enter Y for yes and N for no: ")
+                        # Validate user input for preferred numbers
+                        preferred_numbers = preferred_numbers_input.split(',')
+                        preferred_numbers = [num.strip() for num in preferred_numbers]
 
-                        # Convert user input to lowercase for case insensitivity
-                        play_again_input_lower = play_again_input.lower()
+                        # Check if there are any empty values between commas
+                        preferred_numbers = preferred_numbers_input.split(',')
+                        if any(num == '' for num in preferred_numbers):
+                            print("Error: Empty values between commas are not allowed.")
+                            continue
 
-                        if play_again_input_lower == 'n':
-                            print("Goodbye! Hope you win the Euro Millions.")
-                            return  # Exit the main loop if the user chooses not to play again
+                        # Check if the input contains only numbers from the original list
+                        valid_numbers = set(map(str, num_list))
+                        if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
+                            print("Thank you for modifying your preferred numbers!")
 
-                        elif play_again_input_lower != 'y':
-                            print("Invalid input. Please enter Y for yes or N for no.")
+                            # get the 50 lotto numbers and their rankings
+                            num_ranks = SHEET.worksheet("num-ranks").get_all_values()
+                            all_nums = num_ranks[0]
+                            all_num_stats = num_ranks[1]
+
+                            # Convert lists to integers and transpose the results
+                            all_nums = [int(num) for num in all_nums]
+                            all_num_stats = [int(rank) for rank in all_num_stats]
+                            transpose_all_nums = list(zip(all_nums, all_num_stats))
+
+                            high_ranks = []
+                            moderate_ranks = []
+                            least_ranks = []
+
+                            try:
+                                for pair in transpose_all_nums:
+                                    if pair[1] >= 5:
+                                        high_ranks.append(pair[0])
+                                    elif pair[1] == 4:
+                                        moderate_ranks.append(pair[0])
+                                    elif pair[1] <= 3:
+                                        least_ranks.append(pair[0])
+                            except IndexError:
+                                pass
+
+                            print()
+                            print(f"All time repeat winning numbers are: {high_ranks}")
+
+                            # Convert preferred_numbers to a set
+                            preferred_numbers_set = set(preferred_numbers)
+
+                            """
+                            Pick 2 random numbers from list_a (not in preferred_numbers) and 
+                            1 random number from list_b (not in preferred_numbers and 
+                            not in random_numbers_list_a)
+                            """
+                            available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
+                            random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
+
+                            available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
+
+                            """
+                            Ensure that random_number_moderate_ranks is None 
+                            if available_numbers_moderate_ranks is empty
+                            """
+                            random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks) if available_numbers_moderate_ranks else None
+
+                            # Combine all five numbers into a list named initial_predicted_numbers
+                            initial_predicted_numbers = preferred_numbers + random_numbers_high_ranks
+                            if random_number_moderate_ranks is not None:
+                                initial_predicted_numbers.append(random_number_moderate_ranks)
+
+                            # Convert all elements to integers using list comprehension
+                            predicted_numbers = [int(num) for num in initial_predicted_numbers]
+                            #Sort predicted numbers
+                            sorted_predicted_numbers = sorted(predicted_numbers)
+                            print(f"Your Predicted winning numbers are: {sorted_predicted_numbers}")
+                            print("This version of the App does not provide predictions for lucky numbers.")
+                            
+                            # Prompt for user's choice to play again
+                            print()
+                            play_again_input = input("Do you wish to play again? Enter Y for yes and N for no: ")
+
+                            # Convert user input to lowercase for case insensitivity
+                            play_again_input_lower = play_again_input.lower()
+
+                            if play_again_input_lower == 'n':
+                                print("Good bye! And Good luck winning the Euro Millions.")
+                                return  # Exit the main loop if the user chooses not to play again
+
+                            elif play_again_input_lower != 'y':
+                                print("Invalid input. Please enter Y for yes or N for no.")
+                            else:
+                                print("Starting a new game...")
+                                break
+
                         else:
-                            print("Starting a new game...")
-                            break  # Return to the main loop to start a new game
-
-                    else:
-                        print("Error: Please input exactly 2 preferred numbers separated by commas "
-                            "from the given list or press 'Q' anytime to quit.")
-                
-            elif user_input_lower == 'r':
-                print("Starting a new game...")
-                continue
-            else:
-                print("Invalid input. Please enter 'Q' to quit, 'M' to modify, or 'R' to repeat.")
+                            print("Error: Please input exactly 2 preferred numbers separated by commas "
+                                "from the given list.")
+                    break
+                    
+                elif user_input_lower == 'r':
+                    print("Starting a new game...")
+                    break
+                else:
+                    print("Error: Invalid input.")
+        continue
 
 
 if __name__ == "__main__":

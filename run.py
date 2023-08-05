@@ -393,11 +393,6 @@ listed in the most popular winning numbers.")
                     if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
                         print("Thank you for modifying your preferred numbers!")
 
-
-
-                        # Count how many numbers the user inputs
-                        # pref_numbers_count = len(preferred_numbers_input.split(','))
-
                         # get the 50 lotto numbers and their rankings
                         num_ranks = SHEET.worksheet("num-ranks").get_all_values()
                         all_nums = num_ranks[0]
@@ -423,35 +418,35 @@ listed in the most popular winning numbers.")
                         except IndexError:
                             pass
 
-                        # Count the ranks that are greater than or equal to 5
-                        # Count the ranks that are equal to 4
-                        # Count the ranks that are less than or equal to 3
-                        # count_high_ranks = len(high_ranks)
-                        # count_moderate_ranks = len(moderate_ranks)
-                        # count_least_ranks = len(least_ranks)
-
                         print(all_nums)
                         print(all_num_stats) 
                         print(transpose_all_nums)
                         print(high_ranks)
 
-                        # Convert preferred_numbers to a set for faster membership checking
+                        # Convert preferred_numbers to a set
                         preferred_numbers_set = set(preferred_numbers)
 
-                        # Create a list of available numbers for random selection
-                        # Pick 2 random numbers from list_a (not in preferred_numbers) and 1 random number from list_b (not in preferred_numbers and not in random_numbers_list_a)
+                        """
+                        Pick 2 random numbers from list_a (not in preferred_numbers) and 
+                        1 random number from list_b (not in preferred_numbers and 
+                        not in random_numbers_list_a)
+                        """
                         available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
                         random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
 
                         available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
 
-                        # Ensure that random_number_moderate_ranks is None if available_numbers_moderate_ranks is empty
+                        """
+                        Ensure that random_number_moderate_ranks is None 
+                        if available_numbers_moderate_ranks is empty
+                        """
                         random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks) if available_numbers_moderate_ranks else None
 
                         # Combine all five numbers into a list named initial_predicted_numbers
                         initial_predicted_numbers = preferred_numbers + random_numbers_high_ranks
                         if random_number_moderate_ranks is not None:
                             initial_predicted_numbers.append(random_number_moderate_ranks)
+                            
                         # Convert all elements to integers using list comprehension
                         predicted_numbers = [int(num) for num in initial_predicted_numbers]
                         #Sort predicted numbers

@@ -384,12 +384,18 @@ listed in the most popular winning numbers.")
                         
                         # Validate user input for preferred numbers
                         preferred_numbers = preferred_numbers_input.split(',')
-                        preferred_numbers = [num.strip() for num in preferred_numbers]
+                        preferred_numbers = [
+                            num.strip() for num in preferred_numbers
+                            ]
 
                         # Check if there are any empty values between commas
                         preferred_numbers = preferred_numbers_input.split(',')
                         if any(num == '' for num in preferred_numbers):
                             print("Error: Empty values between commas are not allowed.")
+                            continue
+
+                        elif len(preferred_numbers) != len(set(preferred_numbers)):
+                            print("Error: Preferred numbers must be unique.")
                             continue
 
                         # Check if the input contains only numbers from the original list

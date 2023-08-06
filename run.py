@@ -380,7 +380,7 @@ listed in the most popular winning numbers.")
                     while True:
                         preferred_numbers_input = input("From your chosen numbers "
                                                         f"{num_list}\n"
-                                                        "Enter two numbers you would like to keep, separated by commas and we will repeat the remaining ones: ")
+                                                        "Enter two to keep, separated by commas and we will predict the remaining three: ")
                         
                         # Validate user input for preferred numbers
                         preferred_numbers = preferred_numbers_input.split(',')
@@ -429,15 +429,17 @@ listed in the most popular winning numbers.")
                                 pass
 
                             print()
-                            print(f"All time repeat winning numbers are: {high_ranks}")
+                            print(
+                                f"All time repeat winning numbers are: {high_ranks}"
+                                )
 
                             # Convert preferred_numbers to a set
-                            preferred_numbers_set = set(preferred_numbers)
+                            preferred_numbers_set = set(int(num) for num in preferred_numbers)
 
                             """
-                            Pick 2 random numbers from list_a (not in preferred_numbers) and 
-                            1 random number from list_b (not in preferred_numbers and 
-                            not in random_numbers_list_a)
+                            Pick 2 random numbers from high ranking and 
+                            1 random number from moderate ranking listed 
+                            imported from Google sheets
                             """
                             available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
                             random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
@@ -480,8 +482,8 @@ listed in the most popular winning numbers.")
                                 break
 
                         else:
-                            print("Error: Please input exactly 2 preferred numbers separated by commas "
-                                "from the given list.")
+                            print("Error: Enter exactly two preferred numbers separated by commas "
+                                "from the above list.")
                     break
                     
                 elif user_input_lower == 'r':

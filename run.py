@@ -62,7 +62,7 @@ def validate_data(values):
             int_value = int(value)
             int_values.append(int_value)
         except ValueError as ve:
-            errors_five_nums.append(f"Error: {ve}")
+            errors_five_nums.append(f"{Fore.RED} + Error: {ve}")
     
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
@@ -104,7 +104,7 @@ def user_lotto_data():
     # Print the last draw date and winning numbers only once at the start
     euro = SHEET.worksheet("euro").get_all_values()
     last_draw = euro[-1]
-    print(f"{Fore.BLUE}{Back.YELLOW}Last draw date: {last_draw[0]}")
+    print(f"{Fore.BLACK}{Back.YELLOW}Last draw date: {last_draw[0]}")
     
     winning_numbers_str = ""
     for number in last_draw[1:6]:
@@ -118,32 +118,32 @@ def user_lotto_data():
     print("\n")
 
     # Instructions
-    print("Instructions:")
-    print("Enter five numbers, strictly unique, between 1 and 50,")
-    print("with commas in between and no spaces.")
-    print("Example: 7,45,34,23,49\n")
-    print()
+    print(f"{Back.YELLOW}{Fore.BLACK}Instructions:")
+    print(f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, between 1 and 50,")
+    print(f"{Back.CYAN}{Fore.YELLOW}with commas in between and no spaces.")
+    print(f"{Back.CYAN}{Fore.YELLOW}Example: 7,45,34,23,49")
+    print("\n")
 
     while True:
         # Get user input for Euro Millions ticket numbers
         lotto_data_five_nums = []
-        data_str_five_nums = input(Fore.GREEN + "Enter your five numbers here (separated by commas): ")
+        data_str_five_nums = input(Fore.GREEN + Style.BRIGHT + "Enter your five numbers here (separated by commas): ")
         lotto_data_five_nums = data_str_five_nums.split(",")
 
         # Validate the user-entered data
         if validate_data(lotto_data_five_nums):
-            print("Data is valid!")
+            print(Back.GREEN + Fore.WHITE + "Data is valid!")
             break
         else:
             print(Fore.RED + "Error: Invalid data format.")
 
     while True:
         # Get user input for the 2 lucky numbers between 1 and 12
-        lucky_numbers_str = input("Enter your two lucky numbers (separated by commas): ")
+        lucky_numbers_str = input(Fore.GREEN + Style.BRIGHT + "Enter your two lucky numbers (separated by commas): ")
 
         # Check if the input contains spaces
         if " " in lucky_numbers_str:
-            print("Error: Spaces are not allowed. Please re-enter lucky numbers without spaces.")
+            print(Fore.RED + "Error: Spaces are not allowed. Please re-enter lucky numbers without spaces.")
             continue
 
         # Remove spaces from the input string
@@ -158,7 +158,7 @@ def user_lotto_data():
             if all(1 <= num <= 12 for num in lucky_numbers) and len(lucky_numbers) == 2:
                 # Check if lucky_numbers are unique
                 if len(set(lucky_numbers)) == 2:
-                    print("Lucky numbers are valid!")
+                    print(Back.GREEN + Fore.WHITE + "Lucky numbers are valid!")
                     break
                 else:
                     print("Error: Lucky numbers should be two unique integers between 1 and 12.")

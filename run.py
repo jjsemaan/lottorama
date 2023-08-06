@@ -1,10 +1,12 @@
 # Import required libraries
 import gspread
 from google.oauth2.service_account import Credentials
-# from pprint import pprint
 import time
 import random
 from tabulate import tabulate
+import colorama
+from colorama import Fore, Back, Style
+colorama.init(autoreset = True)
 
 # Define the required Google Sheets API scope permissions
 SCOPE = [
@@ -48,7 +50,7 @@ def validate_data(values):
 
     # Check if there are spaces between values and commas
     if any(' ' in value for value in values.split(',')):
-        errors_five_nums.append("Error: Spaces not allowed between values and commas.")
+        errors_five_nums.append(Fore.RED + "Error: Spaces not allowed between values and commas.")
 
     """
     Convert each value to an integer and check if they are within
@@ -64,18 +66,18 @@ def validate_data(values):
     
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
-        errors_five_nums.append("Error: Exactly 5 values required.")
-        print("Error: Exactly 5 whole numbers required!")
+        errors_five_nums.append(Fore.RED + "Error: Exactly 5 values required.")
+        print(Fore.RED + "Error: Exactly 5 whole numbers required!")
         print()
         return False
 
     for value in int_values:
         if not 1 <= value <= 50:
-            errors_five_nums.append("Error: Values should be between 1 and 50.")
+            errors_five_nums.append(Fore.RED + "Error: Values should be between 1 and 50.")
     
     # Check if the numbers are unique
     if len(set(int_values)) != 5:
-        errors_five_nums.append("Error: The 5 numbers should be unique.")
+        errors_five_nums.append(Fore.RED + "Error: The 5 numbers should be unique.")
 
     if errors_five_nums:
         # Print the errors, if any, and return False indicating data is not valid

@@ -303,9 +303,10 @@ def play_lottorama_game():
 
             # Print about table
             print(
-                Fore.YELLOW +
-                "\nThe below table provides info on repeat wins on\n" +
-                "each of your numbers from previous all-time draws."
+                Fore.CYAN + Style.BRIGHT +
+                "\nThe table below presents comprehensive information\n" +
+                "regarding the frequency of repeat wins for each of\n" +
+                "your selected numbers from previous all-time draws."
                 )
 
             """
@@ -324,8 +325,14 @@ def play_lottorama_game():
                     )
 
             # Print the table
-            headers = ["Numbers", "Wins", "Lucky Numbers", "Wins"]
-            print(tabulate(data, headers=headers, tablefmt="pretty"))
+            headers = [
+                Fore.YELLOW + "Numbers",
+                Fore.YELLOW + "Wins",
+                Fore.YELLOW + "Lucky Numbers",
+                Fore.YELLOW + "Wins"
+                ]
+            table = tabulate(data, headers=headers, tablefmt="pretty")
+            print(Fore.YELLOW + table)
 
             # Convert lists to integers and transpose the results
             num_list = [int(num) for num in num_list]
@@ -413,24 +420,55 @@ def play_lottorama_game():
                 cpl_numbers = "number"
             else:
                 cpl_numbers = "numbers"
-                            
+
             # Summary of winning numbers
-            print()
-            print("Table Summary:")
-            print(f"You have {count_popular} {cp_numbers} {popular_numbers} \
-listed in the most popular winning numbers.")
-            print(f"You have {count_moderately_popular} {cmp_numbers} \
-{moderately_popular_numbers} listed in the moderately popular winning numbers.")
-            print(f"You have {count_least_popular} {clp_numbers} \
-{least_popular_numbers} listed in the least popular winning numbers.")
-            print()
+            print(f"\n{Fore.CYAN}Table Summary:")
+            print(
+                "You have" +
+                f" {Fore.YELLOW}{count_popular}" +
+                f" {Fore.WHITE}{cp_numbers}" +
+                f" {Fore.YELLOW}{popular_numbers}" +
+                f"{Fore.WHITE} listed in the most popular winning numbers."
+                )
+            print(
+                f"You have" +
+                f" {Fore.YELLOW}{count_moderately_popular}" +
+                f" {Fore.WHITE}{cmp_numbers}" +
+                f" {Fore.YELLOW}{moderately_popular_numbers}" +
+                f"{Fore.WHITE} listed in the moderately popular" +
+                " winning numbers."
+                )
+            print(
+                f"You have" +
+                f" {Fore.YELLOW}{count_least_popular}" +
+                f" {Fore.WHITE}{clp_numbers}" +
+                f" {Fore.YELLOW}{least_popular_numbers}" +
+                f"{Fore.WHITE} listed in the least popular winning numbers.\n"
+                )
             # Summary of lucky winning numbers
-            print(f"You have {count_popular_lucky} {cpl_numbers} \
-{popular_lucky_nums} listed in the most popular lucky winning numbers.")
-            print(f"You have {count_moderately_popular_lucky} {cmpl_numbers} \
-{moderately_popular_lucky_nums} listed in the moderately popular lucky winning numbers.")
-            print(f"You have {count_least_popular_lucky} {clpl_numbers} \
-{least_popular_lucky_nums} listed in the least popular winning numbers.")
+            print(
+                f"You have" +
+                f" {Fore.YELLOW}{count_popular_lucky}" +
+                f" {Fore.WHITE}{cpl_numbers}" +
+                f" {Fore.YELLOW}{popular_lucky_nums}" +
+                f"{Fore.WHITE} listed in the most popular lucky" + 
+                " winning numbers."
+                )
+            print(
+                f"You have" +
+                f" {Fore.YELLOW}{count_moderately_popular_lucky}" +
+                f" {Fore.WHITE}{cmpl_numbers}" +
+                f" {Fore.YELLOW}{moderately_popular_lucky_nums}" +
+                f"{Fore.WHITE} listed in the moderately popular lucky" +
+                "winning numbers."
+                )
+            print(
+                f"You have" +
+                f" {Fore.YELLOW}{count_least_popular_lucky}" +
+                f" {Fore.WHITE}{clpl_numbers}" +
+                f" {Fore.YELLOW}{least_popular_lucky_nums}" +
+                f"{Fore.WHITE} listed in the least popular winning numbers."
+                )
             
             # Prompt for user's choice to quit or modify
             print()

@@ -67,8 +67,7 @@ def validate_data(values):
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
         errors_five_nums.append(Fore.RED + "Error: Exactly 5 values required.")
-        print(Fore.RED + "Error: Exactly 5 whole numbers required!")
-        print()
+        print(Fore.RED + "Error: Exactly 5 whole numbers required! \n")
         return False
 
     for value in int_values:
@@ -81,11 +80,11 @@ def validate_data(values):
 
     if errors_five_nums:
         # Print the errors, if any, and return False indicating data is not valid
-        print()
+        print("\n")
         for num in errors_five_nums:
             print(num)
-        print()
-        print("* Please try again!")
+        print("\n")
+        print(Fore.YELLOW + "* Please try again!")
         return False
 
     # Return True if the data is valid
@@ -105,17 +104,18 @@ def user_lotto_data():
     # Print the last draw date and winning numbers only once at the start
     euro = SHEET.worksheet("euro").get_all_values()
     last_draw = euro[-1]
-    print(f"Last draw date: {last_draw[0]}")
+    print(f"{Fore.BLUE}{Back.YELLOW}Last draw date: {last_draw[0]}")
     
     winning_numbers_str = ""
     for number in last_draw[1:6]:
         winning_numbers_str += number + ' '
-    print(f"Winning numbers: {winning_numbers_str}")
+    print(f"{Fore.YELLOW}{Back.CYAN}Winning numbers: {winning_numbers_str}")
     
     winning_lucky_numbers_str = ""
     for number in last_draw[6:8]:
         winning_lucky_numbers_str += number + ' '
-    print(f"Lucky numbers: {winning_lucky_numbers_str}\n")
+    print(f"{Fore.YELLOW}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}")
+    print("\n")
 
     # Instructions
     print("Instructions:")
@@ -127,7 +127,7 @@ def user_lotto_data():
     while True:
         # Get user input for Euro Millions ticket numbers
         lotto_data_five_nums = []
-        data_str_five_nums = input("Enter your five numbers here (separated by commas): ")
+        data_str_five_nums = input(Fore.GREEN + "Enter your five numbers here (separated by commas): ")
         lotto_data_five_nums = data_str_five_nums.split(",")
 
         # Validate the user-entered data
@@ -135,7 +135,7 @@ def user_lotto_data():
             print("Data is valid!")
             break
         else:
-            print("Error: Invalid data format.")
+            print(Fore.RED + "Error: Invalid data format.")
 
     while True:
         # Get user input for the 2 lucky numbers between 1 and 12

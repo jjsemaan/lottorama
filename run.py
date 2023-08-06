@@ -140,8 +140,8 @@ def user_lotto_data():
     # Instructions
     print(f"{Back.YELLOW}{Fore.BLACK}Instructions:")
     print(
-        f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, \
-between 1 and 50,"
+        f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, " +
+        "between 1 and 50."
         )
     print(f"{Back.CYAN}{Fore.YELLOW}with commas in between and no spaces.")
     print(f"{Back.CYAN}{Fore.YELLOW}Example: 7,45,34,23,49")
@@ -210,7 +210,7 @@ between 1 and 50,"
         except ValueError:
             print(
                 Fore.RED + Style.BRIGHT +
-                "Error: Please enter only two valid " +
+                "Error: Please enter only two " +
                 "integers for lucky numbers."
                 )
 
@@ -284,10 +284,9 @@ def play_lottorama_game():
             # Delay execution by 5 seconds to allow workbook updates
             print(
                 Fore.MAGENTA + Style.BRIGHT +
-                "Gathering data! Please wait 5 seconds..."
+                "\nGathering data! Please wait 5 seconds..."
                 )
             time.sleep(5)
-            print()
 
             # Get user numbers lotto_data_five_nums and lucky_numbers
             user_ranking = SHEET.worksheet("user-ranking").get_all_values()
@@ -303,8 +302,11 @@ def play_lottorama_game():
             rank_lucky = rankings_row[6:8]
 
             # Print about table
-            print("The below table provides info on repeat wins on \
-each of your numbers from previous all-time draws.")
+            print(
+                Fore.YELLOW +
+                "\nThe below table provides info on repeat wins on\n" +
+                "each of your numbers from previous all-time draws."
+                )
 
             """
             Add blank values to num_lucky and rank_lucky to match 

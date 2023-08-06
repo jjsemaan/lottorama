@@ -6,7 +6,7 @@ import random
 from tabulate import tabulate
 import colorama
 from colorama import Fore, Back, Style
-colorama.init(autoreset = True)
+colorama.init(autoreset=True)
 
 # Define the required Google Sheets API scope permissions
 SCOPE = [
@@ -15,8 +15,8 @@ SCOPE = [
     "https://www.googleapis.com/auth/drive"
 ]
 
-""" 
-Load the credentials from the service account JSON file 'creds.json' 
+"""
+Load the credentials from the service account JSON file 'creds.json'
 and specify the scope
 """
 CREDS = Credentials.from_service_account_file('creds.json', scopes=SCOPE)
@@ -33,10 +33,12 @@ SHEET = GSPREAD_CLIENT.open('lottorama-data')
 
 def validate_data(values):
     """
-    Function to validate user-entered data for Euro Millions ticket numbers of user.
+    Function to validate user-entered data for
+    Euro Millions ticket numbers of user.
 
     Args:
-    values (str or list): The user-entered numbers as a comma-separated string or list.
+    values (str or list): The user-entered numbers
+    as a comma-separated string or list.
 
     Returns:
     bool: True if the data is valid, False otherwise.
@@ -50,7 +52,10 @@ def validate_data(values):
 
     # Check if there are spaces between values and commas
     if any(' ' in value for value in values.split(',')):
-        errors_five_nums.append(Fore.RED + "Error: Spaces not allowed between values and commas.")
+        errors_five_nums.append(
+            Fore.RED + Style.BRIGHT +
+            "Error: Spaces not allowed between values and commas."
+            )
 
     """
     Convert each value to an integer and check if they are within
@@ -62,29 +67,43 @@ def validate_data(values):
             int_value = int(value)
             int_values.append(int_value)
         except ValueError as ve:
-            errors_five_nums.append(f"{Fore.RED} + Error: {ve}")
-    
+            errors_five_nums.append(
+                f"{Fore.RED}{Style.BRIGHT}Error: {ve}"
+                )
+
     # Check if exactly 5 values are provided
     if len(int_values) != 5:
-        errors_five_nums.append(Fore.RED + "Error: Exactly 5 values required.")
-        print(Fore.RED + "Error: Exactly 5 whole numbers required! \n")
+        errors_five_nums.append(
+            Fore.RED + Style.BRIGHT + "Error: Exactly 5 values required."
+            )
+        print(
+            Fore.RED + Style.BRIGHT +
+            "Error: Exactly 5 whole numbers required! \n"
+            )
         return False
 
     for value in int_values:
         if not 1 <= value <= 50:
-            errors_five_nums.append(Fore.RED + "Error: Values should be between 1 and 50.")
-    
+            errors_five_nums.append(
+                Fore.RED + Style.BRIGHT +
+                "Error: Values should be between 1 and 50."
+                )
+
     # Check if the numbers are unique
     if len(set(int_values)) != 5:
-        errors_five_nums.append(Fore.RED + "Error: The 5 numbers should be unique.")
+        errors_five_nums.append(
+            Fore.RED + Style.BRIGHT +
+            "Error: The 5 numbers should be unique."
+            )
 
     if errors_five_nums:
-        # Print the errors, if any, and return False indicating data is not valid
-        print("\n")
+        """
+        Print the errors, if any, and return False 
+        indicating data is not valid
+        """
         for num in errors_five_nums:
             print(num)
-        print("\n")
-        print(Fore.YELLOW + "* Please try again!")
+        print("\n" + Fore.YELLOW + "* Please try again!")
         return False
 
     # Return True if the data is valid
@@ -100,26 +119,30 @@ def user_lotto_data():
     list: A list of user-entered Euro Millions ticket numbers
     and lucky numbers.
     """
-
     # Print the last draw date and winning numbers only once at the start
     euro = SHEET.worksheet("euro").get_all_values()
     last_draw = euro[-1]
     print(f"{Fore.BLACK}{Back.YELLOW}Last draw date: {last_draw[0]}")
-    
+
     winning_numbers_str = ""
     for number in last_draw[1:6]:
         winning_numbers_str += number + ' '
     print(f"{Fore.YELLOW}{Back.CYAN}Winning numbers: {winning_numbers_str}")
-    
+
     winning_lucky_numbers_str = ""
     for number in last_draw[6:8]:
         winning_lucky_numbers_str += number + ' '
-    print(f"{Fore.YELLOW}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}")
+    print(
+        f"{Fore.YELLOW}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}"
+        )
     print("\n")
 
     # Instructions
     print(f"{Back.YELLOW}{Fore.BLACK}Instructions:")
-    print(f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, between 1 and 50,")
+    print(
+        f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, \
+between 1 and 50,"
+        )
     print(f"{Back.CYAN}{Fore.YELLOW}with commas in between and no spaces.")
     print(f"{Back.CYAN}{Fore.YELLOW}Example: 7,45,34,23,49")
     print("\n")
@@ -127,23 +150,33 @@ def user_lotto_data():
     while True:
         # Get user input for Euro Millions ticket numbers
         lotto_data_five_nums = []
-        data_str_five_nums = input(Fore.GREEN + Style.BRIGHT + "Enter your five numbers here (separated by commas): ")
+        data_str_five_nums = input(
+            Fore.GREEN + Style.BRIGHT +
+            "Enter your five numbers here (separated by commas): "
+            )
         lotto_data_five_nums = data_str_five_nums.split(",")
 
         # Validate the user-entered data
         if validate_data(lotto_data_five_nums):
-            print(Back.GREEN + Fore.WHITE + "Data is valid!")
+            print(Back.GREEN + Fore.WHITE + "Five numbers accepted!")
             break
         else:
-            print(Fore.RED + "Error: Invalid data format.")
+            print(Fore.RED + Style.BRIGHT + "Error: Invalid data format.")
 
     while True:
         # Get user input for the 2 lucky numbers between 1 and 12
-        lucky_numbers_str = input(Fore.GREEN + Style.BRIGHT + "Enter your two lucky numbers (separated by commas): ")
+        lucky_numbers_str = input(
+            Fore.GREEN + Style.BRIGHT +
+            "Enter your two lucky numbers (separated by commas): "
+            )
 
         # Check if the input contains spaces
         if " " in lucky_numbers_str:
-            print(Fore.RED + "Error: Spaces are not allowed. Please re-enter lucky numbers without spaces.")
+            print(
+                Fore.RED + Style.BRIGHT +
+                "Error: Spaces are not allowed. " +
+                "Please re-enter lucky numbers without spaces."
+                )
             continue
 
         # Remove spaces from the input string
@@ -155,17 +188,31 @@ def user_lotto_data():
         # Validate the user-entered data for lucky numbers
         try:
             lucky_numbers = [int(num) for num in lucky_numbers]
-            if all(1 <= num <= 12 for num in lucky_numbers) and len(lucky_numbers) == 2:
+            if all(
+                1 <= num <= 12 for num in lucky_numbers
+                    ) and len(lucky_numbers) == 2:
                 # Check if lucky_numbers are unique
                 if len(set(lucky_numbers)) == 2:
-                    print(Back.GREEN + Fore.WHITE + "Lucky numbers are valid!")
+                    print(Back.GREEN + Fore.WHITE + "Lucky numbers accepted!")
                     break
                 else:
-                    print("Error: Lucky numbers should be two unique integers between 1 and 12.")
+                    print(
+                        Fore.RED + Style.BRIGHT +
+                        "Error: Lucky numbers should " +
+                        "be two unique integers between 1 and 12."
+                        )
             else:
-                print("Error: Lucky numbers should be two integers between 1 and 12.")
+                print(
+                    Fore.RED + Style.BRIGHT +
+                    "Error: Lucky numbers should be two integers " +
+                    "between 1 and 12."
+                    )
         except ValueError:
-            print("Error: Please enter only two valid integers for lucky numbers.")
+            print(
+                Fore.RED + Style.BRIGHT +
+                "Error: Please enter only two valid " +
+                "integers for lucky numbers."
+                )
 
     """
     Combine lotto_data_five_nums and lucky_numbers into a single list
@@ -181,11 +228,11 @@ def user_lotto_data():
 
 def push_to_user_workbook(lotto_data):
     """
-    Function to push user-entered Euro Millions ticket 
+    Function to push user-entered Euro Millions ticket
     numbers to the 'user' workbook.
 
     Args:
-    lotto_data_five_nums (list): A list of user-entered 
+    lotto_data_five_nums (list): A list of user-entered
     Euro Millions ticket numbers.
     """
 
@@ -204,19 +251,28 @@ def push_to_user_workbook(lotto_data):
             user_workbook.update_cell(1, col_index, value)
 
     except Exception as e:
-        print("An error occurred while pushing data to the 'user' workbook:")
+        print(
+            Fore.RED +
+            "An error occurred while pushing data to the 'user' workbook:"
+            )
         print(e)
 
 
 def play_lottorama_game():
     while True:
         # Main program execution starts here
-        print()
-        print("Welcome to Lottorama!")
-        print("Let us help you win the Euro Millions jackpot.")
-        print()
-        print("Gathering data! Please wait for 5 seconds...")
-        print()
+        print(
+            "\n" + Back.YELLOW + Fore.BLACK + Style.BRIGHT +
+            "Welcome to Lottorama!"
+            )
+        print(
+            Fore.YELLOW + Back.CYAN +
+            "Let us try predicting the next Euro Millions jackpot."
+            )
+        print(
+            "\n" +
+            Fore.MAGENTA + Style.BRIGHT + "Gathering data! Please wait... \n"
+            )
 
         while True:
             # Get user-entered Euro Millions ticket numbers
@@ -226,10 +282,13 @@ def play_lottorama_game():
             push_to_user_workbook(lotto_data)
 
             # Delay execution by 5 seconds to allow workbook updates
-            print("Gathering data! Please wait 5 seconds...")
+            print(
+                Fore.MAGENTA + Style.BRIGHT +
+                "Gathering data! Please wait 5 seconds..."
+                )
             time.sleep(5)
             print()
-            
+
             # Get user numbers lotto_data_five_nums and lucky_numbers
             user_ranking = SHEET.worksheet("user-ranking").get_all_values()
 
@@ -244,18 +303,23 @@ def play_lottorama_game():
             rank_lucky = rankings_row[6:8]
 
             # Print about table
-            print("""The below table provides info on repeat wins on 
-each of your numbers from previous all-time draws.""")
+            print("The below table provides info on repeat wins on \
+each of your numbers from previous all-time draws.")
 
-            # Add blank values to num_lucky and rank_lucky to match 
-            # the length of num_list otherwise this lacing to shortest by default
+            """
+            Add blank values to num_lucky and rank_lucky to match 
+            the length of num_list otherwise this lacing to 
+            shortest by default
+            """
             num_lucky += [""] * (len(num_list) - len(num_lucky))
             rank_lucky += [""] * (len(num_list) - len(rank_lucky))
 
             # Create a 2D list with each element in a separate row
             data = []
             for i in range(len(num_list)):
-                data.append([num_list[i], rank_list[i], num_lucky[i], rank_lucky[i]])
+                data.append(
+                    [num_list[i], rank_list[i], num_lucky[i], rank_lucky[i]]
+                    )
 
             # Print the table
             headers = ["Numbers", "Wins", "Lucky Numbers", "Wins"]
@@ -271,7 +335,7 @@ each of your numbers from previous all-time draws.""")
             transpose_lucky = list(zip(lucky_list, rank_lucky))
 
             """
-            Filter out the pairs by index 1 and store 
+            Filter out the pairs by index 1 and store
             the corresponding index 0 numbers
             """
             popular_numbers = []
@@ -492,7 +556,7 @@ listed in the most popular winning numbers.")
                     print("Starting a new game...")
                     break
                 else:
-                    print("Error: Invalid input.")
+                    print(Fore.RED + Style.BRIGHT + "Error: Invalid input.")
         continue
 
 

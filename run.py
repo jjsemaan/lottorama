@@ -510,8 +510,8 @@ def play_lottorama_game():
                         if any(num == '' for num in preferred_numbers):
                             print(
                                 Fore.RED + Style.BRIGHT +
-                                "Error: Empty values between commas are " +
-                                "not allowed."
+                                "Error: Empty values or empty spaces " +
+                                "between commas are not allowed."
                                 )
                             continue
 
@@ -639,7 +639,7 @@ def play_lottorama_game():
                                 )
                             print(
                                 Fore.RED + Style.BRIGHT +
-                                "This version of the App does not provide" + 
+                                "This version of the App does not provide " +
                                 "predictions for lucky numbers."
                                 )
 
@@ -662,7 +662,7 @@ def play_lottorama_game():
                                 if play_again_input_lower == "n":
                                     print(
                                         Fore.YELLOW + Back.CYAN +
-                                        "\nGood bye! And Good luck winning " +
+                                        "Good bye! And Good luck winning " +
                                         "the Euro Millions."
                                         )
                                     return  # Exit the main loop
@@ -677,7 +677,7 @@ def play_lottorama_game():
                                 else:
                                     print(
                                         Fore.BLUE + Style.BRIGHT +
-                                        "Starting a new game..."
+                                        "\nStarting a new game..."
                                         )
                                     play_lottorama_game()
                                 
@@ -692,7 +692,7 @@ def play_lottorama_game():
                 elif user_input_lower == 'r':
                     print(
                         Fore.BLUE + Style.BRIGHT +
-                        "Starting a new game..."
+                        "\nStarting a new game..."
                         )
                     break
                 else:

@@ -16,8 +16,8 @@ SCOPE = [
 ]
 
 """
-Load the credentials from the service account JSON file 'creds.json'
-and specify the scope
+Load the credentials from the service account JSON
+file 'creds.json'and specify the scope
 """
 CREDS = Credentials.from_service_account_file('creds.json', scopes=SCOPE)
 
@@ -98,7 +98,7 @@ def validate_data(values):
 
     if errors_five_nums:
         """
-        Print the errors, if any, and return False 
+        Print the errors, if any, and return False
         indicating data is not valid
         """
         for num in errors_five_nums:
@@ -152,7 +152,7 @@ def user_lotto_data():
         lotto_data_five_nums = []
         data_str_five_nums = input(
             Fore.GREEN + Style.BRIGHT +
-            "Enter your five numbers here (separated by commas): "
+            "Enter your five numbers here (separated by commas):\n "
             )
         lotto_data_five_nums = data_str_five_nums.split(",")
 
@@ -167,7 +167,7 @@ def user_lotto_data():
         # Get user input for the 2 lucky numbers between 1 and 12
         lucky_numbers_str = input(
             Fore.GREEN + Style.BRIGHT +
-            "Enter your two lucky numbers (separated by commas): "
+            "Enter your two lucky numbers (separated by commas):\n "
             )
 
         # Check if the input contains spaces
@@ -480,7 +480,7 @@ def play_lottorama_game():
                 user_input = input(
                     Fore.CYAN +
                     "Enter 'Q' to quit, 'M' to modify or 'R' to start " +
-                    "allover! "
+                    "allover!\n"
                     )
                 # Validate user input for quit, modify, or repeat
                 user_input_lower = user_input.lower()
@@ -497,7 +497,7 @@ def play_lottorama_game():
                             Fore.GREEN + Style.BRIGHT +
                             "\nFrom your chosen numbers " + f"{num_list}\n" +
                             "Enter two numbers to keep, separated by commas "
-                            "and we will predict the remaining three: "
+                            "and we will predict the remaining three:\n "
                             )
 
                         # Validate user input for preferred numbers
@@ -633,7 +633,7 @@ def play_lottorama_game():
                             predicted_numbers = [
                                 int(num) for num in initial_predicted_numbers
                                 ]
-                            #Sort predicted numbers
+                            # Sort predicted numbers
                             sorted_predicted_numbers = sorted(
                                 predicted_numbers
                                 )
@@ -652,7 +652,7 @@ def play_lottorama_game():
                                 play_again_input = input(
                                     Fore.CYAN + Style.BRIGHT +
                                     "\nDo you wish to play again? " +
-                                    "Enter Y for yes and N for no: "
+                                    "Enter Y for yes and N for no:\n "
                                     )
 
                                 """

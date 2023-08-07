@@ -467,27 +467,38 @@ def play_lottorama_game():
                 f" {Fore.YELLOW}{count_least_popular_lucky}" +
                 f" {Fore.WHITE}{clpl_numbers}" +
                 f" {Fore.YELLOW}{least_popular_lucky_nums}" +
-                f"{Fore.WHITE} listed in the least popular winning numbers."
+                f"{Fore.WHITE} listed in the least popular winning numbers.\n"
                 )
-            
+
             # Prompt for user's choice to quit or modify
-            print()
-            print("Now that you have statistics about your numbers,")
+            print(
+                Fore.CYAN +
+                "Now that you have statistics about your numbers,"
+                )
 
             while True:
-                user_input = input("Enter 'Q' to quit, 'M' to modify or 'R' to start allover! ")
-                print()
+                user_input = input(
+                    Fore.YELLOW +
+                    "Enter 'Q' to quit, 'M' to modify or 'R' to start allover! "
+                    )
                 # Validate user input for quit, modify, or repeat
                 user_input_lower = user_input.lower()
                 if user_input_lower == 'q':
-                    print("Good Luck Winning the Euro Millions!")
-                    return  # Exit the function and terminate the game
+                    print(
+                        "\n" +
+                        Fore.YELLOW + Back.CYAN + Style.BRIGHT +
+                        "Good Luck Winning the Euro Millions!"
+                        )
+                    return False  # Exit the function and terminate the game
                 elif user_input_lower == 'm':
                     while True:
-                        preferred_numbers_input = input("From your chosen numbers "
-                                                        f"{num_list}\n"
-                                                        "Enter two to keep, separated by commas and we will predict the remaining three: ")
-                        
+                        preferred_numbers_input = input(
+                            Fore.GREEN + Style.BRIGHT +
+                            "\nFrom your chosen numbers " + f"{num_list}\n" +
+                            "Enter two numbers to keep, separated by commas "
+                            "and we will predict the remaining three: "
+                            )
+
                         # Validate user input for preferred numbers
                         preferred_numbers = preferred_numbers_input.split(',')
                         preferred_numbers = [
@@ -497,17 +508,28 @@ def play_lottorama_game():
                         # Check if there are any empty values between commas
                         preferred_numbers = preferred_numbers_input.split(',')
                         if any(num == '' for num in preferred_numbers):
-                            print("Error: Empty values between commas are not allowed.")
+                            print(
+                                Fore.RED + Style.BRIGHT +
+                                "Error: Empty values between commas are " +
+                                "not allowed."
+                                )
                             continue
 
-                        elif len(preferred_numbers) != len(set(preferred_numbers)):
-                            print("Error: Preferred numbers must be unique.")
+                        elif len(
+                            preferred_numbers
+                            ) != len(
+                            set(preferred_numbers)
+                                ):
+                            print(
+                                Fore.RED + Style.BRIGHT +
+                                "Error: Preferred numbers must be unique."
+                                )
                             continue
 
                         # Check if the input contains only numbers from the original list
                         valid_numbers = set(map(str, num_list))
                         if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
-                            print("Thank you for modifying your preferred numbers!")
+                            print("Thank you for modifying your numbers!")
 
                             # get the 50 lotto numbers and their rankings
                             num_ranks = SHEET.worksheet("num-ranks").get_all_values()
@@ -570,26 +592,30 @@ def play_lottorama_game():
                             print(f"Your Predicted winning numbers are: {sorted_predicted_numbers}")
                             print("This version of the App does not provide predictions for lucky numbers.")
                             
-                            # Prompt for user's choice to play again
-                            print()
-                            play_again_input = input("Do you wish to play again? Enter Y for yes and N for no: ")
+                            while True:
+                                # Prompt for user's choice to play again
+                                play_again_input = input("Do you wish to play again? Enter Y for yes and N for no: ")
+                                
+                                # Convert user input to lowercase for case insensitivity
+                                play_again_input_lower = play_again_input.lower()
 
-                            # Convert user input to lowercase for case insensitivity
-                            play_again_input_lower = play_again_input.lower()
+                                if play_again_input_lower == "n":
+                                    print("Good bye! And Good luck winning the Euro Millions.")
+                                    return  # Exit the main loop if the user chooses not to play again
 
-                            if play_again_input_lower == 'n':
-                                print("Good bye! And Good luck winning the Euro Millions.")
-                                return  # Exit the main loop if the user chooses not to play again
+                                elif play_again_input_lower != "y":
+                                    print("Invalid input. Please enter Y for yes or N for no.")
 
-                            elif play_again_input_lower != 'y':
-                                print("Invalid input. Please enter Y for yes or N for no.")
-                            else:
-                                print("Starting a new game...")
-                                break
-
+                                else:
+                                    print("Starting a new game...")
+                                    play_lottorama_game()
+                                
                         else:
-                            print("Error: Enter exactly two preferred numbers separated by commas "
-                                "from the above list.")
+                            print(
+                                Fore.RED + Style.BRIGHT +
+                                "Error: Enter two preferred numbers separated by commas " +
+                                "from the above list. Do not leave any spaces in between."
+                                )
                     break
                     
                 elif user_input_lower == 'r':

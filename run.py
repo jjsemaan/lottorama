@@ -478,7 +478,7 @@ def play_lottorama_game():
 
             while True:
                 user_input = input(
-                    Fore.YELLOW +
+                    Fore.CYAN +
                     "Enter 'Q' to quit, 'M' to modify or 'R' to start allover! "
                     )
                 # Validate user input for quit, modify, or repeat
@@ -572,8 +572,10 @@ def play_lottorama_game():
 
                             print(
                                 Fore.YELLOW + Style.BRIGHT +
-                                "\nAll time repeat winning " +
-                                f"numbers are: {high_ranks}"
+                                "\nPlease note that we have carefully " +
+                                "chosen three numbers from our records " +
+                                "of all time winning jackpots.\n"
+                                "Wishing you the best of luck!"
                                 )
 
                             # Convert preferred_numbers to a set
@@ -605,8 +607,8 @@ def play_lottorama_game():
                             if available_numbers_moderate_ranks is empty
                             """
                             random_number_moderate_ranks = random.choice(
-                                available_numbers_moderate_ranks)
-                                if available_numbers_moderate_ranks else None
+                                available_numbers_moderate_ranks
+                                ) if available_numbers_moderate_ranks else None
 
                             """
                             Combine all five numbers into a list named 
@@ -632,7 +634,6 @@ def play_lottorama_game():
                                 predicted_numbers
                                 )
                             print(
-                                Fore.BLACK + Back.WHITE +
                                 "\nYour Predicted winning numbers are: " +
                                 f"{Fore.YELLOW}{sorted_predicted_numbers}"
                                 )

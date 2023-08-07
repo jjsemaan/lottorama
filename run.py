@@ -528,18 +528,32 @@ def play_lottorama_game():
 
                         # Check if the input contains only numbers from the original list
                         valid_numbers = set(map(str, num_list))
-                        if all(num in valid_numbers for num in preferred_numbers) and len(preferred_numbers) == 2:
-                            print("Thank you for modifying your numbers!")
+                        if all(
+                            num in valid_numbers for num in preferred_numbers
+                                ) and len(preferred_numbers) == 2:
+                            print(
+                                Fore.YELLOW + Back.GREEN +
+                                "Thank you for modifying your numbers!"
+                                )
 
                             # get the 50 lotto numbers and their rankings
-                            num_ranks = SHEET.worksheet("num-ranks").get_all_values()
+                            num_ranks = SHEET.worksheet(
+                                "num-ranks"
+                                ).get_all_values()
                             all_nums = num_ranks[0]
                             all_num_stats = num_ranks[1]
 
-                            # Convert lists to integers and transpose the results
+                            """
+                            Convert lists to integers and
+                            transpose the results
+                            """
                             all_nums = [int(num) for num in all_nums]
-                            all_num_stats = [int(rank) for rank in all_num_stats]
-                            transpose_all_nums = list(zip(all_nums, all_num_stats))
+                            all_num_stats = [
+                                int(rank) for rank in all_num_stats
+                                ]
+                            transpose_all_nums = list(
+                                zip(all_nums, all_num_stats)
+                                )
 
                             high_ranks = []
                             moderate_ranks = []
@@ -556,58 +570,114 @@ def play_lottorama_game():
                             except IndexError:
                                 pass
 
-                            print()
                             print(
-                                f"All time repeat winning numbers are: {high_ranks}"
+                                Fore.YELLOW + Style.BRIGHT +
+                                "\nAll time repeat winning " +
+                                f"numbers are: {high_ranks}"
                                 )
 
                             # Convert preferred_numbers to a set
-                            preferred_numbers_set = set(int(num) for num in preferred_numbers)
+                            preferred_numbers_set = set(
+                                int(num) for num in preferred_numbers
+                                )
 
                             """
                             Pick 2 random numbers from high ranking and 
                             1 random number from moderate ranking listed 
                             imported from Google sheets
                             """
-                            available_numbers_high_ranks = [num for num in high_ranks if num not in preferred_numbers_set]
-                            random_numbers_high_ranks = random.sample(available_numbers_high_ranks, 2)
+                            available_numbers_high_ranks = [
+                                num for num in high_ranks if num not in
+                                preferred_numbers_set
+                                ]
+                            random_numbers_high_ranks = random.sample(
+                                available_numbers_high_ranks, 2
+                                )
 
-                            available_numbers_moderate_ranks = [num for num in moderate_ranks if num not in preferred_numbers_set and num not in random_numbers_high_ranks]
+                            available_numbers_moderate_ranks = [
+                                num for num in moderate_ranks if num not in
+                                preferred_numbers_set and num not in
+                                random_numbers_high_ranks
+                                ]
 
                             """
                             Ensure that random_number_moderate_ranks is None 
                             if available_numbers_moderate_ranks is empty
                             """
-                            random_number_moderate_ranks = random.choice(available_numbers_moderate_ranks) if available_numbers_moderate_ranks else None
+                            random_number_moderate_ranks = random.choice(
+                                available_numbers_moderate_ranks)
+                                if available_numbers_moderate_ranks else None
 
-                            # Combine all five numbers into a list named initial_predicted_numbers
-                            initial_predicted_numbers = preferred_numbers + random_numbers_high_ranks
+                            """
+                            Combine all five numbers into a list named 
+                            initial_predicted_numbers
+                            """
+                            initial_predicted_numbers = (
+                                preferred_numbers + random_numbers_high_ranks
+                                )
                             if random_number_moderate_ranks is not None:
-                                initial_predicted_numbers.append(random_number_moderate_ranks)
+                                initial_predicted_numbers.append(
+                                    random_number_moderate_ranks
+                                    )
 
-                            # Convert all elements to integers using list comprehension
-                            predicted_numbers = [int(num) for num in initial_predicted_numbers]
+                            """
+                            Convert all elements to integers 
+                            using list comprehension
+                            """
+                            predicted_numbers = [
+                                int(num) for num in initial_predicted_numbers
+                                ]
                             #Sort predicted numbers
-                            sorted_predicted_numbers = sorted(predicted_numbers)
-                            print(f"Your Predicted winning numbers are: {sorted_predicted_numbers}")
-                            print("This version of the App does not provide predictions for lucky numbers.")
-                            
+                            sorted_predicted_numbers = sorted(
+                                predicted_numbers
+                                )
+                            print(
+                                Fore.BLACK + Back.WHITE +
+                                "\nYour Predicted winning numbers are: " +
+                                f"{Fore.YELLOW}{sorted_predicted_numbers}"
+                                )
+                            print(
+                                Fore.RED + Style.BRIGHT +
+                                "This version of the App does not provide" + 
+                                "predictions for lucky numbers."
+                                )
+
                             while True:
                                 # Prompt for user's choice to play again
-                                play_again_input = input("Do you wish to play again? Enter Y for yes and N for no: ")
+                                play_again_input = input(
+                                    Fore.CYAN + Style.BRIGHT +
+                                    "\nDo you wish to play again? " +
+                                    "Enter Y for yes and N for no: "
+                                    )
                                 
-                                # Convert user input to lowercase for case insensitivity
-                                play_again_input_lower = play_again_input.lower()
+                                """
+                                Convert user input to lowercase 
+                                for case insensitivity
+                                """
+                                play_again_input_lower = (
+                                    play_again_input.lower()
+                                    )
 
                                 if play_again_input_lower == "n":
-                                    print("Good bye! And Good luck winning the Euro Millions.")
-                                    return  # Exit the main loop if the user chooses not to play again
+                                    print(
+                                        Fore.YELLOW + Back.CYAN +
+                                        "\nGood bye! And Good luck winning " +
+                                        "the Euro Millions."
+                                        )
+                                    return  # Exit the main loop
 
                                 elif play_again_input_lower != "y":
-                                    print("Invalid input. Please enter Y for yes or N for no.")
+                                    print(
+                                        Fore.RED + Style.BRIGHT +
+                                        "Invalid input. " +
+                                        "Please enter Y for yes or N for no."
+                                        )
 
                                 else:
-                                    print("Starting a new game...")
+                                    print(
+                                        Fore.BLUE + Style.BRIGHT +
+                                        "Starting a new game..."
+                                        )
                                     play_lottorama_game()
                                 
                         else:
@@ -619,10 +689,15 @@ def play_lottorama_game():
                     break
                     
                 elif user_input_lower == 'r':
-                    print("Starting a new game...")
+                    print(
+                        Fore.BLUE + Style.BRIGHT +
+                        "Starting a new game..."
+                        )
                     break
                 else:
-                    print(Fore.RED + Style.BRIGHT + "Error: Invalid input.")
+                    print(
+                        Fore.RED + Style.BRIGHT + "Error: Invalid input."
+                        )
         continue
 
 

@@ -310,8 +310,8 @@ def play_lottorama_game():
                 )
 
             """
-            Add blank values to num_lucky and rank_lucky to match 
-            the length of num_list otherwise this lacing to 
+            Add blank values to num_lucky and rank_lucky to match
+            the length of num_list otherwise this lacing to
             shortest by default
             """
             num_lucky += [""] * (len(num_list) - len(num_lucky))
@@ -401,7 +401,7 @@ def play_lottorama_game():
                         least_popular_lucky_nums.append(pair[0])
             except IndexError:
                 pass
-            
+
             count_popular_lucky = len(popular_lucky_nums)
             count_moderately_popular_lucky = len(moderately_popular_lucky_nums)
             count_least_popular_lucky = len(least_popular_lucky_nums)
@@ -451,7 +451,7 @@ def play_lottorama_game():
                 f" {Fore.YELLOW}{count_popular_lucky}" +
                 f" {Fore.WHITE}{cpl_numbers}" +
                 f" {Fore.YELLOW}{popular_lucky_nums}" +
-                f"{Fore.WHITE} listed in the most popular lucky" + 
+                f"{Fore.WHITE} listed in the most popular lucky" +
                 " winning numbers."
                 )
             print(
@@ -479,7 +479,8 @@ def play_lottorama_game():
             while True:
                 user_input = input(
                     Fore.CYAN +
-                    "Enter 'Q' to quit, 'M' to modify or 'R' to start allover! "
+                    "Enter 'Q' to quit, 'M' to modify or 'R' to start " +
+                    "allover! "
                     )
                 # Validate user input for quit, modify, or repeat
                 user_input_lower = user_input.lower()
@@ -526,7 +527,10 @@ def play_lottorama_game():
                                 )
                             continue
 
-                        # Check if the input contains only numbers from the original list
+                        """
+                        Check if the input contains only
+                        numbers from the original list
+                        """
                         valid_numbers = set(map(str, num_list))
                         if all(
                             num in valid_numbers for num in preferred_numbers
@@ -584,8 +588,8 @@ def play_lottorama_game():
                                 )
 
                             """
-                            Pick 2 random numbers from high ranking and 
-                            1 random number from moderate ranking listed 
+                            Pick 2 random numbers from high ranking and
+                            1 random number from moderate ranking listed
                             imported from Google sheets
                             """
                             available_numbers_high_ranks = [
@@ -603,7 +607,7 @@ def play_lottorama_game():
                                 ]
 
                             """
-                            Ensure that random_number_moderate_ranks is None 
+                            Ensure that random_number_moderate_ranks is None
                             if available_numbers_moderate_ranks is empty
                             """
                             random_number_moderate_ranks = random.choice(
@@ -611,7 +615,7 @@ def play_lottorama_game():
                                 ) if available_numbers_moderate_ranks else None
 
                             """
-                            Combine all five numbers into a list named 
+                            Combine all five numbers into a list named
                             initial_predicted_numbers
                             """
                             initial_predicted_numbers = (
@@ -623,7 +627,7 @@ def play_lottorama_game():
                                     )
 
                             """
-                            Convert all elements to integers 
+                            Convert all elements to integers
                             using list comprehension
                             """
                             predicted_numbers = [
@@ -650,10 +654,10 @@ def play_lottorama_game():
                                     "\nDo you wish to play again? " +
                                     "Enter Y for yes and N for no: "
                                     )
-                                
+
                                 """
-                                Convert user input to lowercase 
-                                for case insensitivity
+                                Convert user input to lowercase
+                                for case sensitivity
                                 """
                                 play_again_input_lower = (
                                     play_again_input.lower()
@@ -680,15 +684,16 @@ def play_lottorama_game():
                                         "\nStarting a new game..."
                                         )
                                     play_lottorama_game()
-                                
+
                         else:
                             print(
                                 Fore.RED + Style.BRIGHT +
-                                "Error: Enter two preferred numbers separated by commas " +
-                                "from the above list. Do not leave any spaces in between."
+                                "Error: Enter two preferred numbers " +
+                                "separated by commas from the above " +
+                                "list. Do not leave any spaces in between."
                                 )
                     break
-                    
+
                 elif user_input_lower == 'r':
                     print(
                         Fore.BLUE + Style.BRIGHT +

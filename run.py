@@ -127,21 +127,25 @@ def user_lotto_data():
     winning_numbers_str = ""
     for number in last_draw[1:6]:
         winning_numbers_str += number + ' '
-    print(f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Winning numbers: {winning_numbers_str}")
+    print(
+        f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Winning numbers: " +
+        f"{winning_numbers_str}"
+        )
 
     winning_lucky_numbers_str = ""
     for number in last_draw[6:8]:
         winning_lucky_numbers_str += number + ' '
     print(
-        f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}"
+        f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Lucky numbers: " +
+        f"{winning_lucky_numbers_str}"
         )
     print("\n")
 
     # Instructions
     print(f"{Fore.YELLOW}{Style.BRIGHT}Instructions:")
     print(
-        f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Enter five numbers, strictly unique, " +
-        "between 1 and 50."
+        f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Enter five numbers, " +
+        "strictly unique, between 1 and 50."
         )
     print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}with commas in between and no spaces.")
     print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Example: 7,45,34,23,49")
@@ -271,7 +275,7 @@ def play_lottorama_game():
             )
         print(
             "\n" +
-            Fore.MAGENTA + Style.BRIGHT + "Gathering data! Please wait... \n"
+            Fore.YELLOW + Style.BRIGHT + "Gathering data! Please wait... \n"
             )
 
         while True:
@@ -283,7 +287,7 @@ def play_lottorama_game():
 
             # Delay execution by 5 seconds to allow workbook updates
             print(
-                Fore.MAGENTA + Style.BRIGHT +
+                Fore.YELLOW + Style.BRIGHT +
                 "\nGathering data! Please wait 5 seconds..."
                 )
             time.sleep(5)
@@ -326,13 +330,13 @@ def play_lottorama_game():
 
             # Print the table
             headers = [
-                Fore.YELLOW + "Numbers",
-                Fore.YELLOW + "Wins",
-                Fore.YELLOW + "Lucky Numbers",
-                Fore.YELLOW + "Wins"
+                Fore.YELLOW + Style.BRIGHT + "Numbers",
+                Fore.YELLOW + Style.BRIGHT + "Wins",
+                Fore.YELLOW + Style.BRIGHT + "Lucky Numbers",
+                Fore.YELLOW + Style.BRIGHT + "Wins"
                 ]
             table = tabulate(data, headers=headers, tablefmt="pretty")
-            print(Fore.YELLOW + table)
+            print(Fore.YELLOW + Style.BRIGHT + table)
 
             # Convert lists to integers and transpose the results
             num_list = [int(num) for num in num_list]
@@ -422,51 +426,51 @@ def play_lottorama_game():
                 cpl_numbers = "numbers"
 
             # Summary of winning numbers
-            print(f"\n{Fore.CYAN}Table Summary:")
+            print(f"\n{Fore.CYAN}{Style.BRIGHT}Table Summary:")
             print(
                 "You have" +
-                f" {Fore.YELLOW}{count_popular}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_popular}" +
                 f" {Fore.WHITE}{cp_numbers}" +
-                f" {Fore.YELLOW}{popular_numbers}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{popular_numbers}" +
                 f"{Fore.WHITE} listed in the most popular winning numbers."
                 )
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{count_moderately_popular}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_moderately_popular}" +
                 f" {Fore.WHITE}{cmp_numbers}" +
-                f" {Fore.YELLOW}{moderately_popular_numbers}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{moderately_popular_numbers}" +
                 f"{Fore.WHITE} listed in the moderately popular" +
                 " winning numbers."
                 )
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{count_least_popular}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_least_popular}" +
                 f" {Fore.WHITE}{clp_numbers}" +
-                f" {Fore.YELLOW}{least_popular_numbers}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{least_popular_numbers}" +
                 f"{Fore.WHITE} listed in the least popular winning numbers.\n"
                 )
             # Summary of lucky winning numbers
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{count_popular_lucky}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_popular_lucky}" +
                 f" {Fore.WHITE}{cpl_numbers}" +
-                f" {Fore.YELLOW}{popular_lucky_nums}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{popular_lucky_nums}" +
                 f"{Fore.WHITE} listed in the most popular lucky" +
                 " winning numbers."
                 )
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{count_moderately_popular_lucky}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_moderately_popular_lucky}" +
                 f" {Fore.WHITE}{cmpl_numbers}" +
-                f" {Fore.YELLOW}{moderately_popular_lucky_nums}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{moderately_popular_lucky_nums}" +
                 f"{Fore.WHITE} listed in the moderately popular lucky" +
                 "winning numbers."
                 )
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{count_least_popular_lucky}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{count_least_popular_lucky}" +
                 f" {Fore.WHITE}{clpl_numbers}" +
-                f" {Fore.YELLOW}{least_popular_lucky_nums}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}{least_popular_lucky_nums}" +
                 f"{Fore.WHITE} listed in the least popular winning numbers.\n"
                 )
 
@@ -478,7 +482,7 @@ def play_lottorama_game():
 
             while True:
                 user_input = input(
-                    Fore.CYAN +
+                    Fore.CYAN + Style.BRIGHT +
                     "Enter 'Q' to quit, 'M' to modify or 'R' to start " +
                     "allover!\n"
                     )
@@ -495,7 +499,8 @@ def play_lottorama_game():
                     while True:
                         preferred_numbers_input = input(
                             Fore.GREEN + Style.BRIGHT +
-                            "\nFrom your chosen numbers " + f"{num_list}\n" +
+                            "\nFrom your chosen numbers " +
+                            f"{Fore.GREEN}{Style.BRIGHT}{num_list}\n" +
                             "Enter two numbers to keep, separated by commas "
                             "and we will predict the remaining three:\n "
                             )
@@ -642,8 +647,10 @@ def play_lottorama_game():
                                 f"{Fore.YELLOW}{sorted_predicted_numbers}"
                                 )
                             print(
-                                Fore.RED + Style.BRIGHT +
-                                "This version of the App does not provide " +
+                                "\n" +
+                                Fore.BLUE + Style.BRIGHT +
+                                "Please note that, " +
+                                "this version of the App does not provide " +
                                 "predictions for lucky numbers."
                                 )
 

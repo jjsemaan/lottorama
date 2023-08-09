@@ -478,9 +478,11 @@ def play_lottorama_game():
                 )
             print(
                 f"You have" +
-                f" {Fore.YELLOW}{Style.BRIGHT}{count_moderately_popular_lucky}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}"
+                f"{count_moderately_popular_lucky}" +
                 f" {Fore.WHITE}{cmpl_numbers}" +
-                f" {Fore.YELLOW}{Style.BRIGHT}{moderately_popular_lucky_nums}" +
+                f" {Fore.YELLOW}{Style.BRIGHT}"
+                f"{moderately_popular_lucky_nums}" +
                 f"{Fore.WHITE} listed in the moderately popular lucky" +
                 "winning numbers."
                 )

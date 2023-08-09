@@ -144,11 +144,22 @@ def user_lotto_data():
     # Instructions
     print(f"{Fore.YELLOW}{Style.BRIGHT}Instructions:")
     print(
-        f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Enter five numbers, " +
-        "strictly unique, between 1 and 50."
+        f"{Fore.GREEN}{Style.BRIGHT}Enter five numbers, " +
+        "strictly unique, between 1 and 50 with" +
+        "\ncommas in between and no spaces." +
+        f"{Fore.YELLOW}{Style.BRIGHT} Example: 7,45,34,23,49" +
+        f"{Fore.GREEN}{Style.BRIGHT}" +
+        "\nIf your 5 numbers are valid, you will then be prompted to " +
+        "\nenter two lucky numbers between 1 and 12." +
+        "\nIf your lucky numbers are valid, the app will provide an " +
+        "\nanalysis of your ticket in a table follwed by a " +
+        "\nbrief summary and options to either quit, repeat or modify." +
+        "\nShould you decide to modify, the app will ask you to " +
+        "\nenter two numbers to keep from your ticket and it will " +
+        "\npredict the remaining three numbers from historical data " +
+        "\nof previous winning numbers." +
+        "\nGood luck!"
         )
-    print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}with commas in between and no spaces.")
-    print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Example: 7,45,34,23,49")
     print("\n")
 
     while True:
@@ -156,7 +167,8 @@ def user_lotto_data():
         lotto_data_five_nums = []
         data_str_five_nums = input(
             Fore.GREEN + Style.BRIGHT +
-            "Enter your five numbers here (separated by commas):\n "
+            "Enter your five numbers here (separated by commas):\n " +
+            Fore.YELLOW + Style.BRIGHT
             )
         lotto_data_five_nums = data_str_five_nums.split(",")
 
@@ -171,7 +183,8 @@ def user_lotto_data():
         # Get user input for the 2 lucky numbers between 1 and 12
         lucky_numbers_str = input(
             Fore.GREEN + Style.BRIGHT +
-            "Enter your two lucky numbers (separated by commas):\n "
+            "Enter your two lucky numbers (separated by commas):\n " +
+            Fore.YELLOW + Style.BRIGHT
             )
 
         # Check if the input contains spaces
@@ -476,7 +489,7 @@ def play_lottorama_game():
 
             # Prompt for user's choice to quit or modify
             print(
-                Fore.CYAN +
+                Fore.CYAN + Style.BRIGHT +
                 "Now that you have statistics about your numbers,"
                 )
 
@@ -484,7 +497,8 @@ def play_lottorama_game():
                 user_input = input(
                     Fore.CYAN + Style.BRIGHT +
                     "Enter 'Q' to quit, 'M' to modify or 'R' to start " +
-                    "allover!\n"
+                    "allover!\n" +
+                    Fore.YELLOW + Style.BRIGHT
                     )
                 # Validate user input for quit, modify, or repeat
                 user_input_lower = user_input.lower()
@@ -500,9 +514,11 @@ def play_lottorama_game():
                         preferred_numbers_input = input(
                             Fore.GREEN + Style.BRIGHT +
                             "\nFrom your chosen numbers " +
-                            f"{Fore.GREEN}{Style.BRIGHT}{num_list}\n" +
-                            "Enter two numbers to keep, separated by commas "
-                            "and we will predict the remaining three:\n "
+                            f"{Fore.YELLOW}{Style.BRIGHT}{num_list}\n" +
+                            Fore.GREEN + Style.BRIGHT +
+                            "Enter two numbers to keep, separated by commas\n"
+                            "and we will predict the remaining three:\n " +
+                            Fore.YELLOW + Style.BRIGHT
                             )
 
                         # Validate user input for preferred numbers
@@ -541,7 +557,7 @@ def play_lottorama_game():
                             num in valid_numbers for num in preferred_numbers
                                 ) and len(preferred_numbers) == 2:
                             print(
-                                Fore.YELLOW + Back.GREEN +
+                                Fore.GREEN + Style.BRIGHT +
                                 "Thank you for modifying your numbers!"
                                 )
 
@@ -580,7 +596,7 @@ def play_lottorama_game():
                                 pass
 
                             print(
-                                Fore.YELLOW + Style.BRIGHT +
+                                Fore.CYAN + Style.BRIGHT +
                                 "\nPlease note that we have carefully " +
                                 "chosen three numbers from our records " +
                                 "of all time winning jackpots.\n"
@@ -643,14 +659,16 @@ def play_lottorama_game():
                                 predicted_numbers
                                 )
                             print(
-                                "\nYour Predicted winning numbers are: " +
-                                f"{Fore.YELLOW}{sorted_predicted_numbers}"
+                                "\n" +
+                                Fore.GREEN + Style.BRIGHT +
+                                "Your Predicted winning numbers are: " +
+                                f"{Fore.YELLOW}{Style.BRIGHT}" +
+                                f"{sorted_predicted_numbers}"
                                 )
                             print(
                                 "\n" +
                                 Fore.BLUE + Style.BRIGHT +
-                                "Please note that, " +
-                                "this version of the App does not provide " +
+                                "This version of the App does not provide " +
                                 "predictions for lucky numbers."
                                 )
 
@@ -659,7 +677,8 @@ def play_lottorama_game():
                                 play_again_input = input(
                                     Fore.CYAN + Style.BRIGHT +
                                     "\nDo you wish to play again? " +
-                                    "Enter Y for yes and N for no:\n "
+                                    "Enter Y for yes and N for no:\n " +
+                                    Fore.YELLOW + Style.BRIGHT
                                     )
 
                                 """

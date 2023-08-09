@@ -145,19 +145,18 @@ def user_lotto_data():
     print(f"{Fore.YELLOW}{Style.BRIGHT}Instructions:")
     print(
         f"{Fore.GREEN}{Style.BRIGHT}Enter five numbers, " +
-        "strictly unique, between 1 and 50 with" +
-        "\ncommas in between and no spaces." +
-        f"{Fore.YELLOW}{Style.BRIGHT} Example: 7,45,34,23,49" +
+        "strictly unique, between 1 and 50 with commas in between and no " +
+        "spaces." + f"{Fore.YELLOW}{Style.BRIGHT} Example: 7,45,34,23,49" +
         f"{Fore.GREEN}{Style.BRIGHT}" +
         "\nIf your 5 numbers are valid, you will then be prompted to " +
-        "\nenter two lucky numbers between 1 and 12." +
+        "enter two lucky numbers between 1 and 12." +
         "\nIf your lucky numbers are valid, the app will provide an " +
-        "\nanalysis of your ticket in a table follwed by a " +
-        "\nbrief summary and options to either quit, repeat or modify." +
+        "analysis of your ticket in a table follwed by a " +
+        "brief summary and options to either quit, repeat or modify." +
         "\nShould you decide to modify, the app will ask you to " +
-        "\nenter two numbers to keep from your ticket and it will " +
-        "\npredict the remaining three numbers from historical data " +
-        "\nof previous winning numbers." +
+        "enter two numbers to keep from your ticket and it will " +
+        "predict the remaining three numbers from historical data " +
+        "of previous winning numbers." +
         "\nGood luck!"
         )
     print("\n")
@@ -706,7 +705,7 @@ def play_lottorama_game():
 
                                 else:
                                     print(
-                                        Fore.BLUE + Style.BRIGHT +
+                                        Fore.CYAN + Style.BRIGHT +
                                         "\nStarting a new game..."
                                         )
                                     play_lottorama_game()

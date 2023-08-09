@@ -147,13 +147,13 @@ def user_lotto_data():
         f"{Fore.GREEN}{Style.BRIGHT}" +
         "Enter five numbers, strictly unique, between 1 and 50 with " +
         "commas in between " +
-        "\n and no spaces." + f"{Fore.YELLOW}{Style.BRIGHT}" +
+        "\nand no spaces." + f"{Fore.YELLOW}{Style.BRIGHT}" +
         "Example: 7,45,34,23,49" +
         f"{Fore.GREEN}{Style.BRIGHT}" +
         "\nIf your 5 numbers are valid, you will then be prompted to " +
         "enter two lucky " +
         "\nnumbers between 1 and 12." +
-        "If your lucky numbers are valid, the app will provide an " +
+        "\nIf your lucky numbers are valid, the app will provide an " +
         "analysis of your ticket " +
         "\nin a table follwed by a brief summary and options to " +
         "either quit, repeat or modify." +

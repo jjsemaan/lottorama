@@ -147,7 +147,7 @@ def user_lotto_data():
         f"{Fore.GREEN}{Style.BRIGHT}" +
         "Enter five numbers, strictly unique, between 1 and 50 with " +
         "commas in between " +
-        "\nand no spaces." + f"{Fore.YELLOW}{Style.BRIGHT}" +
+        "\nand no spaces. " + f"{Fore.YELLOW}{Style.BRIGHT}" +
         "Example: 7,45,34,23,49" +
         f"{Fore.GREEN}{Style.BRIGHT}" +
         "\nIf your 5 numbers are valid, you will then be prompted to " +

@@ -154,9 +154,10 @@ def user_lotto_data():
         "enter two lucky " +
         "\nnumbers between 1 and 12." +
         "\nIf your lucky numbers are valid, the app will provide an " +
-        "analysis of your ticket " +
-        "\nin a table follwed by a brief summary and options to " +
-        "either quit, repeat or modify." +
+        "analysis of your " +
+        "ticket in a table follwed by a brief summary and options to " +
+        "either quit, repeat " +
+        "or modify."
         "\nShould you decide to modify, the app will ask you to " +
         "enter two numbers to " +
         "\nkeep from your ticket and it will predict the remaining " +

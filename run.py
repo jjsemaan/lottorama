@@ -262,12 +262,12 @@ def play_lottorama_game():
     while True:
         # Main program execution starts here
         print(
-            "\n" + Back.YELLOW + Fore.BLACK + Style.BRIGHT +
+            "\n" + Fore.YELLOW + Style.BRIGHT +
             "Welcome to Lottorama!"
             )
         print(
-            Fore.YELLOW + Back.CYAN +
-            "Let us try predicting the next Euro Millions jackpot."
+            Fore.YELLOW + Style.BRIGHT + Back.CYAN +
+            "Let us try to predict the next Euro Millions jackpot!"
             )
         print(
             "\n" +

@@ -122,29 +122,29 @@ def user_lotto_data():
     # Print the last draw date and winning numbers only once at the start
     euro = SHEET.worksheet("euro").get_all_values()
     last_draw = euro[-1]
-    print(f"{Fore.BLACK}{Back.YELLOW}Last draw date: {last_draw[0]}")
+    print(f"{Fore.YELLOW}{Style.BRIGHT}Last draw date: {last_draw[0]}")
 
     winning_numbers_str = ""
     for number in last_draw[1:6]:
         winning_numbers_str += number + ' '
-    print(f"{Fore.YELLOW}{Back.CYAN}Winning numbers: {winning_numbers_str}")
+    print(f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Winning numbers: {winning_numbers_str}")
 
     winning_lucky_numbers_str = ""
     for number in last_draw[6:8]:
         winning_lucky_numbers_str += number + ' '
     print(
-        f"{Fore.YELLOW}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}"
+        f"{Fore.YELLOW}{Style.BRIGHT}{Back.CYAN}Lucky numbers: {winning_lucky_numbers_str}"
         )
     print("\n")
 
     # Instructions
-    print(f"{Back.YELLOW}{Fore.BLACK}Instructions:")
+    print(f"{Fore.YELLOW}{Style.BRIGHT}Instructions:")
     print(
-        f"{Back.CYAN}{Fore.YELLOW}Enter five numbers, strictly unique, " +
+        f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Enter five numbers, strictly unique, " +
         "between 1 and 50."
         )
-    print(f"{Back.CYAN}{Fore.YELLOW}with commas in between and no spaces.")
-    print(f"{Back.CYAN}{Fore.YELLOW}Example: 7,45,34,23,49")
+    print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}with commas in between and no spaces.")
+    print(f"{Back.CYAN}{Fore.YELLOW}{Style.BRIGHT}Example: 7,45,34,23,49")
     print("\n")
 
     while True:
@@ -263,7 +263,7 @@ def play_lottorama_game():
         # Main program execution starts here
         print(
             "\n" + Fore.YELLOW + Style.BRIGHT +
-            "Welcome to Lottorama!"
+            "               Welcome to Lottorama!"
             )
         print(
             Fore.YELLOW + Style.BRIGHT + Back.CYAN +

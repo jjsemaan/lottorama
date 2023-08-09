@@ -15,6 +15,7 @@ Lottorama is a Python-based tool that helps users analyee historical lottery dat
 1. The opportunity to get winning numbers of the most recent Euro Millions draw.
    * When the program is first run a welcome note is displayed followed by the latest winning numbers and app usage instructions.
 
+![Welcome](assets/images/welcome.jpg)
 
 - Validates user-entered Euro Millions ticket numbers.
 - Displays statistics about the frequency of past wins for user-selected numbers.

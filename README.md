@@ -13,13 +13,30 @@ Lottorama is a Python-based tool that helps users analyee historical lottery dat
 ## Features
 
 1. The opportunity to get winning numbers of the most recent Euro Millions draw.
-   * When the program is first run a welcome note is displayed followed by the latest winning numbers and app usage instructions.
+    - When the program is first run a welcome note is displayed followed by the latest winning numbers and app usage instructions.
 
-![Welcome](assets/images/01-welcome.jpg)
+![Welcome](Docs/welcome.png)
 
-- Validates user-entered Euro Millions ticket numbers.
-- Displays statistics about the frequency of past wins for user-selected numbers.
-- Generates predictions for future lottery numbers based on historical data.
-- Provides options to modify user-selected numbers and predict new combinations.
-- Offers an interactive and user-friendly command-line interface.
-- Utilizes Google Sheets API for data storage and retrieval.
+2. Validates user-entered Euro Millions ticket numbers.
+    - Checks if numbers are whole numbers.
+    - Checks if numbers are five in total for lotto and two in total for lucky numbers.
+    - Checks if numbers are between 1 and 50 for lotto and between 1 and 12 for lucky numbers.
+    - Checks if numbers are unique.
+    - Checks for letters, spaces and / or multiple commas and returns error.
+
+3. Displays statistics about the frequency of past wins for user-selected numbers.
+    - Returns the number of times each number appeared in a winning draw.
+
+![Statistics](Docs/stats.png)
+
+4. Provides options to modify user-selected numbers and predict new combinations.
+
+5. Generates predictions for future lottery numbers based on historical data.
+    - Requests user to keep two numbers while app predicts the remaining three by collecting highest and moderate ranking numbers.
+    - Then the app picks two numbers from highest ranking and one number from the moderate ranking collections.
+
+![Prediction](Docs/predict.png)
+
+6. Offers an interactive and user-friendly command-line interface.
+
+7. Utilises Google Sheets API for data storage and retrieval.

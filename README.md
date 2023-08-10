@@ -67,7 +67,7 @@ No errors were found when code passed through the [PEP8](http://pep8online.com/c
 
 ### Bugs / Other
 
-I manually tested the whole app going through every scenario, using the below workflow chart for reference:
+I manually tested the whole app going back and forth through every iteration, using the below workflow chart for reference:
 
 ![Workflow](assets/images/workflow.png)
 
@@ -117,4 +117,21 @@ Once GitHub is chosen, find your repository and connect it to Heroku.
 
 
 ## Credits
+
+> The mock terminal used to host the game has been created by Code institute.
+> <br>
+
+> General python code lookup from W3 Schools "https://www.w3schools.com/python/"
+> <br>
+
+> Code Institute Love sandwiches Project developed inline with PP3 "https://github.com/Code-Institute-Solutions/love-sandwiches-p5-sourcecode/tree/master/01-getting-set-up/01-getting-our-gitpod-workspace-set-up"
+> <br>
+
+> The code is custom and written entirely by Jalal Semaaan.
+
+## Acknowledgements
+
+> Daisy McGirr
+> 
+> My mentor who provided me with constructive feedback and support throughout the duration of this project.
 

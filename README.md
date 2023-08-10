@@ -41,7 +41,6 @@ Lottorama is a Python-based tool that helps users analyee historical lottery dat
 
 7. Utilises Google Sheets API for data storage and retrieval.
 
-------------------------------------------------------------------
 
 ## Technologies
 
@@ -55,3 +54,67 @@ Lottorama is a Python-based tool that helps users analyee historical lottery dat
 * Python library [tabulate](https://pypi.org/project/tabulate/) was installed and used to create a table with analytics of winning numbers.
 * Python library [colorama](https://pypi.org/project/colorama/) was installed and used to add colors to text throughout the app.
 * Python library [gspread](https://pypi.org/project/gspread/) was installed and used to read, write and update data, and connect with Google Sheets API.
+
+
+## Testing
+
+### Validator testing
+
+No errors were found when code passed through the [PEP8](http://pep8online.com/checkresult) linter.
+
+![PEP8](assets/images/testing.png)
+
+
+### Bugs / Other
+
+I manually tested the whole app going through every scenario, using the below workflow chart for reference:
+
+![Workflow](assets/images/workflow.png)
+
+
+## Testing
+
+The app is connected to a Google Sheets document named 'lottorama-data' through the Google Sheets API. The connection is tested by retrieving and pushing information to the document.
+
+1. **Retrieving Information:** The app successfully retrieves data from the 'euro' workbook to display the last draw date, winning numbers, and lucky numbers.
+
+![Lotto-Workbook](assets/images/euro-workbook.png)
+
+2. **Pushing Information:** The app pushes user-entered Euro Millions ticket numbers to the 'user' workbook and ranks the user numbers in the user-ranking workbook before retrieving the analysed numbers to the app.
+
+![User-Ranking](assets/images/ranking.png)
+
+### Functions Testing
+
+1. **`validate_data(values)`:** This function is responsible for validating user-entered Euro Millions ticket numbers. Testing includes:
+   - Providing valid and invalid number combinations to check for accurate validation.
+
+2. **`user_lotto_data()`:** This function is responsible for obtaining user input for Euro Millions ticket numbers. Testing includes:
+   - Entering correct and incorrect formats of ticket numbers.
+   - Verifying user prompts and feedback during the process.
+
+3. **`push_to_user_workbook(lotto_data)`:** This function pushes user-entered Euro Millions ticket numbers to the 'user' workbook. Testing includes:
+   - Checking if the data is correctly pushed to the workbook.
+   - Ensuring that the data is correctly formatted.
+
+4. **`play_lottorama_game()`:** This function handles the main gameplay loop. Testing includes:
+   - Simulating the user input process for Euro Millions ticket numbers.
+   - Testing modifications of user-selected numbers and predictions.
+   - Testing the options to quit or repeat the game.
+
+
+## Deployment
+
+The below steps were followed to deploy this project to Heroku:
+1. Go to [Heroku](https://dashboard.heroku.com/apps) and click "New" to create a new app.
+2. After choosing the app name and setting the region, press "Create app".
+3. Go to "Settings" and navigate to Config Vars. Add a Config Var with a key word of called PORT and a value of 8000.
+4. Still in the "Settings", navigate to Buildpacks and add buildpacks for Python and NodeJS (in order).
+5. Leave "Settings" and go to "Deploy". Scroll down and set Deployment Method to GitHub.
+Once GitHub is chosen, find your repository and connect it to Heroku.
+6. Scroll down to Manual Deploy, make sure the "main" branch is selected and click "Deploy Branch". 
+7. The deployed app can be found [here](https://lottorama-d338fc131061.herokuapp.com/).
+
+
+## Credits
+
